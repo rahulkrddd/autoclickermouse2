@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto Clicker Mouse</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/scripts.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+  <div id="mainContent">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <img src="/images/logo.png" alt="Auto Clicker Logo">
+        </div>
+        <div class="header-text">
+          <h1>Auto Clicker Mouse</h1>
+          <p>The Ultimate Productivity Device</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+      <!-- Product Section -->
+      <section class="product-section">
+        <div class="product-left">
+          <!-- Slideshow -->
+          <div class="slideshow-container">
+            <div class="slides active">
+              <img src="/images/img1.jpg" alt="Ergonomic Auto Clicker Mouse Design" class="slide-image">
+            </div>
+            <div class="slides">
+              <img src="/images/img2.jpg" alt="High Precision Auto Clicker Mouse" class="slide-image">
+            </div>
+            <div class="slides">
+              <img src="/images/img3.jpg" alt="Auto Clicker Mouse for Gamers" class="slide-image">
+            </div>
+            <div class="slides">
+              <img src="/images/img4.jpg" alt="Ergonomic Design for Long Hours" class="slide-image">
+            </div>
+            <div class="slides">
+              <img src="/images/img5.jpg" alt="Adjustable Click Speed" class="slide-image">
+            </div>
+          </div>
+        </div>
+
+        <!-- Fullscreen Modal for Image Zoom -->
+        <div class="fullscreen-modal" id="fullscreenModal">
+          <span class="close" id="closeModal">&#10006;</span>
+          <img src="" alt="Zoomed Image" id="zoomedImg" class="zoomed-img">
+        </div>
+
+        <div class="product-right">
+          <h2>Why Choose Auto Clicker Mouse?</h2>
+          <ul>
+            <li><i class="fas fa-check-circle"></i> Infinite auto-clicking for time tracker tools like WAM and Prohance.</li>
+            <li><i class="fas fa-check-circle"></i> Plug-and-play—no software installation needed.</li>
+            <li><i class="fas fa-check-circle"></i> Perfect for IT professionals to bypass time tracker and save time.</li>
+            <li><i class="fas fa-check-circle"></i> Lightweight, ergonomic, and durable design.</li>
+          </ul>
+          <p class="price">Price: ₹800</p>
+          <!-- Buy Now Button -->
+          <button class="buy-now" onclick="openForm()">Buy Now</button>
+        </div>
+      </section>
+
+      <!-- Shorts Section -->
+      <section class="product-videos">
+        <h3 class="section-title">See the Mouse in Action</h3>
+        <div class="videos">
+          <iframe src="https://www.youtube.com/embed/dHVnOQI6SQY" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/z_E0q3jo9Ls" allowfullscreen></iframe>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <button class="call-button" onclick="callNow()">📞 Call Us</button>
+      <p>&copy; 2025 Auto Clicker Mouse. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <!-- Popup Modal (moved outside of mainContent) -->
+  <div class="modal" id="popupModal" style="display: none;">
+    <div class="modal-content">
+      <!-- Close Button inside Modal -->
+      <span class="close-button" id="closeModal" onclick="closeForm()">&#10006;</span>
+
+      <!-- Transaction Result Section -->
+      <div id="transactionResult" style="display: none;">
+        <h2 id="transactionStatus"></h2>
+        <p id="shippingDetails"></p>
+        <p id="orderDate"></p>
+        <p id="orderNumber"></p>
+        <p id="txnID" style="display: none;"></p>
+        <button id="downloadBtn" onclick="downloadDetails()">Order Details</button>
+
+        <div id="failureOptions" style="display: none;">
+          <button onclick="openForm()">Update Details</button>
+          <button onclick="retryPayment()">Retry Payment</button>
+        </div>
+      </div>
+
+      <!-- Purchase Form Section -->
+      <div id="purchaseFormSection">
+        <h2>Complete Your Purchase</h2>
+        <form id="purchaseForm">
+          <label for="fullName">Full Name
+            <span id="nameSuccess" class="success-icon" style="display: none;">&#10004;</span>
+          </label>
+          <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+          <small class="error-message" id="nameError"></small>
+
+          <label for="address">Address
+            <span id="addressSuccess" class="success-icon" style="display: none;">&#10004;</span>
+          </label>
+          <textarea id="address" name="address" placeholder="Enter your address" required></textarea>
+          <small class="error-message" id="addressError"></small>
+
+          <label for="pinCode">Pin Code
+            <span id="pinCodeSuccess" class="success-icon" style="display: none;">&#10004;</span>
+          </label>
+          <input type="text" id="pinCode" name="pinCode" placeholder="Enter your pin code" required>
+          <small class="error-message" id="pinCodeError"></small>
+
+          <label for="mobileNumber">Mobile Number
+            <span id="mobileSuccess" class="success-icon" style="display: none;">&#10004;</span>
+          </label>
+          <input type="text" id="mobileNumber" name="mobileNumber" placeholder="Enter your mobile number" required>
+          <small class="error-message" id="mobileError"></small>
+
+          <button type="button" id="payNowButton" disabled>Pay Now</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+<script>
+    function testVerifyPayment() {
+        // Random data for the test
+        const paymentData = {
+            payment_id: "pay_12345",
+            order_id: "order_67890",
+            signature: "randomSignature123",
+            name: "John Doe",
+            address: "123 Test Street, Test City",
+            pincode: "123456",
+            mobile: "9876543210"
+        };
+
+        // Send POST request to server-side verifyPayment function
+        fetch('/verifyPayment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(paymentData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Response from server:", data);
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    }
+
+    // Call the test function
+    testVerifyPayment();
+</script>
+</body>
+</html>
