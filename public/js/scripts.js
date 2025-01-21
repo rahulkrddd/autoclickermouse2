@@ -51,6 +51,8 @@ function closeForm() {
   document.getElementById("popupModal").style.display = "none";
 }
 
+
+/////////////////////////////////////////////////////////////
 function validateField(fieldId, errorMessageId, validationFunction, successIconId) {
   const field = document.getElementById(fieldId);
   const errorMessage = document.getElementById(errorMessageId);
@@ -64,30 +66,34 @@ function validateField(fieldId, errorMessageId, validationFunction, successIconI
       errorMessage.innerText = "";
       successIcon.style.display = "inline";
     }
-    validateForm();
+    validateForm();  // Validate form after blur event
   });
 
   field.addEventListener("input", function () {
     errorMessage.innerText = "";
     successIcon.style.display = "none";
+    validateForm();  // Validate form during input (as soon as the user types)
   });
 }
 
 function validateName(value) {
-  return value.length >= 3;
+  return value.replace(/\s/g, '').length >= 3 && !/^([a-zA-Z])\1*$/.test(value);
 }
 
+
 function validateAddress(value) {
-  return value.length >= 10;
+  return value.length >= 15 && (value.split(' ').length - 1) >= 3 && value.replace(/ /g, '').length >= 15;
 }
+
 
 function validatePinCode(value) {
   return /^\d{6}$/.test(value);
 }
 
 function validateMobile(value) {
-  return /^\d{10}$/.test(value);
+  return /^[6-9]\d{9}$/.test(value);
 }
+
 
 function validateForm() {
   const fullNameValid = validateName(
@@ -104,7 +110,15 @@ function validateForm() {
   );
 
   const payNowButton = document.getElementById("payNowButton");
-  payNowButton.disabled = !(fullNameValid && addressValid && pinCodeValid && mobileValid);
+
+  // Enable and turn the button green if all fields are valid
+  if (fullNameValid && addressValid && pinCodeValid && mobileValid) {
+    payNowButton.disabled = false;
+    payNowButton.style.backgroundColor = "green";  // Set to green when valid
+  } else {
+    payNowButton.disabled = true;
+    payNowButton.style.backgroundColor = "";  // Reset background if invalid
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
