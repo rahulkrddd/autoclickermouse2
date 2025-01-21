@@ -143,41 +143,43 @@
     </div>
   </div>
 
-
-
-
-<script>
-    function testVerifyPayment() {
-        // Random data for the test
-        const paymentData = {
-            payment_id: "pay_12345",
-            order_id: "order_67890",
-            signature: "randomSignature123",
-            name: "John Doe",
-            address: "123 Test Street, Test City",
-            pincode: "123456",
-            mobile: "9876543210"
-        };
-
-        // Send POST request to server-side verifyPayment function
-        fetch('/verifyPayment', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(paymentData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log("Response from server:", data);
-        })
-        .catch(error => {
-            console.error("Error:", error);
-        });
-    }
-
-    // Call the test function
-    testVerifyPayment();
-</script>
 </body>
 </html>
+
+
+	<!--this is just testing script to test without payment--------------------------------------
+	<script>
+		function testVerifyPayment() {
+			// Random data for the test
+			const paymentData = {
+				payment_id: "pay_12345",
+				order_id: "order_67890",
+				<!-- signature: "randomSignature123", -->
+				name: "John Doe",
+				address: "123 Test Street, Test City",
+				pincode: "123456",
+				mobile: "9876543210"
+			};
+	
+			// Send POST request to server-side verifyPayment function
+			fetch('/verifyPayment', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(paymentData)
+			})
+			.then(response => response.json())
+			.then(data => {
+				console.log("Response from server:", data);
+			})
+			.catch(error => {
+				console.error("Error:", error);
+			});
+		}
+	
+		// Call the test function
+		testVerifyPayment();
+
+	</script>
+		--this is just testing script test without payment-------------------------------------->
