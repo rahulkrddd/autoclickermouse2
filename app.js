@@ -86,34 +86,122 @@ app.post("/verifyPayment", async (req, res) => {
   }
 });
 
-// Utility function to write to the data file on GitHub
 async function writeDataFile(data) {
   try {
+    // Convert the data to JSON format and encode it in base64
     const fileContent = Buffer.from(JSON.stringify(data, null, 2), 'utf-8').toString('base64');
 
+    // Fetch the current file information from GitHub to get the sha for the existing file
     const { data: fileInfo } = await axios.get(`${GITHUB_API_BASE}/repos/${GITHUB_REPO}/contents/${FILE_PATH}`, {
       headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
     });
 
-    const { sha: fileSha } = fileInfo;
+    // Ensure current data is an object or array before proceeding
+    let currentData = JSON.parse(Buffer.from(fileInfo.content, 'base64').toString('utf-8'));
+    
+    // If it's not an array, wrap it into an array (assuming your data should be an array)
+    if (!Array.isArray(currentData)) {
+      currentData = [currentData]; // Wrap the object into an array if it's not already an array
+    }
+
+    // Now you can safely push to the array
+    currentData.push(data);
 
     // Create a commit to update the file
     const updateResponse = await axios.put(`${GITHUB_API_BASE}/repos/${GITHUB_REPO}/contents/${FILE_PATH}`, {
-      message: "Payment Data Update",
-      content: fileContent,
-      sha: fileSha,
-      branch: "main"
+      message: "Payment Data Update", // Commit message
+      content: Buffer.from(JSON.stringify(currentData, null, 2), 'utf-8').toString('base64'), // Updated content
+      sha: fileInfo.sha, // SHA of the current file to overwrite
+      branch: "main" // Make sure to use the correct branch (usually "main")
     }, {
       headers: {
         Authorization: `token ${GITHUB_TOKEN}`
       }
     });
 
-    console.log("Data successfully written to GitHub:", updateResponse.data);
+    console.log("Data successfully written to GitHub:");
+	// After the data is written, send an email
+    await sendOrderEmail(data); // Sending the email with payment data
+	
+	
   } catch (error) {
     console.error("Error writing to GitHub:", error);
   }
 }
+
+
+
+
+const nodemailer = require('nodemailer');
+
+// Setup email transport using App Password
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD // App Password
+    },
+    tls: {
+        rejectUnauthorized: false
+    }
+});
+
+async function sendOrderEmail(paymentData) {
+    try {
+        // Format the address by splitting it if it's longer than 30 characters per line
+        let formattedAddress = paymentData.address;
+        if (formattedAddress.length > 30) {
+            // Split the address into chunks of 30 characters
+            let addressLines = formattedAddress.match(/.{1,30}/g);
+            
+            // Ensure that each split line is indented with the appropriate number of spaces
+            formattedAddress = addressLines.map(line => `${line}`).join('\n');
+        } else {
+            // If the address is short, just use it without any wrapping
+            formattedAddress = `${formattedAddress}`;
+        }
+
+        // Prepare the email content with custom formatting (no leading spaces in 'To' and added spaces to 'From')
+        const emailText = `
+\n\n\n
+                                       Order ID: ${paymentData.order_id}
+
+To,
+${paymentData.name},
+${formattedAddress}
+Pincode: ${paymentData.pincode},
+Mobile: ${paymentData.mobile}
+
+\n\n
+                                                                                 From,
+                                                                                   Rahul Gupta,
+                                                                                   vandematram Road,
+                                                                                   Sanjay Nagar, Shikshak Colony, Kurud
+                                                                                   Dhamtari, C.G. , pin - 493663
+                                                                                   Mobile - 8839623805
+`;
+
+        // Setup mail options
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: process.env.EMAIL_RECIPIENT,  // The recipient email address
+            subject: 'New Order Received',  // Email subject
+            text: emailText  // Email body text
+        };
+
+        // Send the email
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.error('Error sending email:', error);
+            } else {
+                console.log('Email sent successfully:', info.response);
+            }
+        });
+    } catch (error) {
+        console.error('Error in sending email:', error);
+    }
+}
+
 
 
 
