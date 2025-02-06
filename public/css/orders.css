@@ -415,6 +415,8 @@ select {
         flex-wrap: wrap;
         justify-content: space-between; /* Spread buttons across */
         gap: 5px; /* Reduce gap between buttons */
+        margin-left: 5px; /* Increase horizontal space */
+        margin-right: 5px; /* Increase horizontal space */
     }
 
     .top-buttons button {
