@@ -769,7 +769,7 @@ async function handleAdminLogin(event) {
                 // Redirect to My Orders page
                 window.location.href = `/my-orders?mobileNumber=${encodeURIComponent(mobileNumber)}`;
             } else {
-                showMessage("Unable to fetch orders. Please try again.", 'red');
+                showMessage("This mobile number does not exist in our system.", 'red');
             }
         } catch (error) {
             console.error("Error during fetching orders:", error);
