@@ -8,7 +8,7 @@
     "payment_id": "pay_PmXyzZmi0ZZ8BD",
     "date": "23-JAN-25",
     "time": "21:29:40",
-    "current_status": "Delivered",
+    "current_status": "Shipped",
     "feedback": "4233",
     "feedback_timestamp": "2025-02-04T11:42:56.030Z",
     "reusable_field1": "testing rahul 2",
