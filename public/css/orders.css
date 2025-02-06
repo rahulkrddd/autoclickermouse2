@@ -418,8 +418,8 @@ select {
     }
 
     .top-buttons button {
-        font-size: 12px; /* Smaller font size */
-        padding: 6px 12px; /* Reduced padding */
+    font-size: 16px;
+        padding: 14px 0;
         min-width: 100px; /* Minimize button size */
         transition: background-color 0.3s, transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transition for hover effects */
     }
