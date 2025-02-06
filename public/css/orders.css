@@ -519,4 +519,24 @@ select {
 /***LOGOUT**/
 
 
+/****loading spinner initially before data fetch from file ***/
+/* Loading Spinner Style */
+.hidden {
+    display: none;
+}
+
+.loading-spinner {
+    font-size: 20px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+/* Customize your spinner as needed, here's an example */
+.loading-spinner::after {
+    content: "⏳";
+}
+
+
+/****loading spinner initially before data fetch from file ***/
+
 /*************************************************************************************mobile*************************************/
