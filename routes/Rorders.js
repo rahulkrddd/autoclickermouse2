@@ -43,7 +43,7 @@ function parseDateTime(date, time) {
 
 // Handle POST request for fetching order details
 router.post('/', async (req, res) => {
-    console.log('Received request for order details:', req.body);
+    //console.log('Received request for order details:', req.body);
 
     try {
         const { mobileNumber } = req.body;
@@ -73,7 +73,7 @@ router.post('/', async (req, res) => {
             return dateTimeB - dateTimeA;
         });
 
-        console.log('Sorted Order Details:', matchingOrders);
+        //console.log('Sorted Order Details:', matchingOrders);
         res.status(200).json({ message: 'Order details found', orders: matchingOrders });
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' });
