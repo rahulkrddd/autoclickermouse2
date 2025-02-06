@@ -479,7 +479,7 @@ select {
 
 
 .logout-button {
-    background: linear-gradient(135deg, #2c3e50, #4ca1af);/* blue gradient */
+    background: linear-gradient(red, #FF6F61, #D9534F); /* Red gradient */
     color: white; /* White text color */
     border: none; /* No border */
     padding: 5px 10px; /* Small button size */
@@ -491,7 +491,7 @@ select {
 
 /* Hover effect for logout button */
 .logout-button:hover {
-    background: linear-gradient(red, #FF6F61, #D9534F); /* Red gradient */
+    background: red;
 }
 
 /* Mobile responsiveness */
