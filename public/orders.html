@@ -12,20 +12,27 @@
 </head>
 <body>
     <div class="container">
-        <h1>📦 Your Order Details
-			<div class="logout-container">
-				<button id="logoutButton" class="logout-button">Logout</button>
-			</div>
-		</h1>
-		
 
-		<div class="button-container top-buttons">
-			<button onclick="window.location.href='/'">🏠 Home</button>
-			<button onclick="redirectToHome()">Reorder</button>
-			<button id="prev-order" onclick="previousOrder()">⬅️ Previous Order</button>
-			<button id="next-order" onclick="nextOrder()">➡️ Next Order</button>
+	
+    <h1>📦 Your Order Details
+		<div class="logout-container">
+			<button id="logoutButton" class="logout-button">Logout</button>
 		</div>
+	</h1>
+	
+
+	<div class="button-container top-buttons">
+		<button onclick="window.location.href='/'">🏠 Home</button>
+		<button onclick="redirectToHome()">Reorder</button>
+		<button id="prev-order" onclick="previousOrder()">⬅️ Previous Order</button>
+		<button id="next-order" onclick="nextOrder()">➡️ Next Order</button>
+	</div>
 		
+    <!-- Loading Spinner This will initially hide the body with Loading until data is loaded from File--> 
+    <div id="loading" class="loading-spinner">Loading...</div>
+    <div id="content" class="hidden">  <!-- This content will be hidden initially -->	
+
+	
         <!-- Order Summary -->
 		<div class="summary">
 			<p class="order-id"><strong>Order ID:</strong> <span id="order-id"></span></p>
@@ -132,6 +139,7 @@
 			</div>
 		</div>
 	</div>
+    </div>
 </div>
 
 <!-- CSS for Flip effect -->
