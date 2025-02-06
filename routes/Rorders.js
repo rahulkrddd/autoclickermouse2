@@ -80,12 +80,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-
-
-
-
-const fetch = require('node-fetch');  // Ensure node-fetch is imported for API requests
-
+// Handle POST request for submitting feedback
 router.post('/submit-feedback', async (req, res) => {
     const { mobileNumber, shipping, packaging, product, feedback, order } = req.body;
 
@@ -112,14 +107,13 @@ router.post('/submit-feedback', async (req, res) => {
     try {
         // Fetch the current file content from the GitHub repository
         const url = `${GITHUB_API_BASE}/repos/${GITHUB_REPO}/contents/${FILE_PATH}`;
-        const response = await fetch(url, {
-            method: 'GET',
+        const response = await axios.get(url, {
             headers: {
                 'Authorization': `token ${GITHUB_TOKEN}`,
             }
         });
 
-        const data = await response.json();
+        const data = response.data;
 
         // Decode the base64 content of the file
         const fileContent = Buffer.from(data.content, 'base64').toString('utf-8');
@@ -143,21 +137,20 @@ router.post('/submit-feedback', async (req, res) => {
         const encodedContent = Buffer.from(updatedContent).toString('base64');
 
         // Update the file on GitHub with the new content
-        const updateResponse = await fetch(url, {
-            method: 'PUT',
+        const updateResponse = await axios.put(url, {
             headers: {
                 'Authorization': `token ${GITHUB_TOKEN}`,
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
+            data: {
                 message: 'Updated feedback and reusable_field1 for order',
                 content: encodedContent,
                 sha: data.sha,  // Provide the SHA of the existing file for the commit
-            }),
+            }
         });
 
-        const updateData = await updateResponse.json();
-        if (updateResponse.ok) {
+        const updateData = updateResponse.data;
+        if (updateResponse.status === 200) {
             return res.json({
                 message: 'Feedback submitted and file updated successfully!',
                 orderDetails: order,
