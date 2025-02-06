@@ -7,40 +7,41 @@ let textFeedback, orderFeedback;
 
 // Function to display order details
 function displayOrderDetails(order) {
-	document.getElementById('order-name').textContent = order.name;
-	document.getElementById('order-mobile').textContent = order.mobile;
-	document.getElementById('order-id').textContent = order.order_id;
-	document.getElementById('payment-id').textContent = order.payment_id;
-	document.getElementById('order-address').textContent = order.address;
-	document.getElementById('order-pincode').textContent = order.pincode;
-	document.getElementById('order-date').textContent = order.date;
-	document.getElementById('order-time').textContent = order.time;
-	let statusText = order.current_status === "Order Placed" ? "Order Confirmed" : order.current_status;
-	document.getElementById('order-status').textContent = statusText;
+    document.getElementById('order-name').textContent = order.name;
+    document.getElementById('order-mobile').textContent = order.mobile;
+    document.getElementById('order-id').textContent = order.order_id;
+    document.getElementById('payment-id').textContent = order.payment_id;
+    document.getElementById('order-address').textContent = order.address;
+    document.getElementById('order-pincode').textContent = order.pincode;
+    document.getElementById('order-date').textContent = order.date;
+    document.getElementById('order-time').textContent = order.time;
+    let statusText = order.current_status === "Order Placed" ? "Order Confirmed" : order.current_status;
+    document.getElementById('order-status').textContent = statusText;
 
-	document.getElementById('tracking-id').textContent = order.reusable_field2 || "No tracking ID available.";
-	let trackingElement = document.getElementById('tracking-id');
-	let trackingValue = order.reusable_field2 || "No tracking ID available.";
-	
-	if (trackingValue.startsWith("http")) {
-		trackingElement.innerHTML = `<a href="${trackingValue}" target="_blank" class="tracking-link">Track Your Order</a>`;
-	} else {
-		trackingElement.textContent = trackingValue;
-	}
+    document.getElementById('tracking-id').textContent = order.reusable_field2 || "No tracking ID available.";
+    let trackingElement = document.getElementById('tracking-id');
+    let trackingValue = order.reusable_field2 || "No tracking ID available.";
+    
+    if (trackingValue.startsWith("http")) {
+        trackingElement.innerHTML = `<a href="${trackingValue}" target="_blank" class="tracking-link">Track Your Order</a>`;
+    } else {
+        trackingElement.textContent = trackingValue;
+    }
 
-	// Assign values to global variables
-	textFeedback = order.reusable_field1 || "No text feedback available.";
-	orderFeedback = order.feedback !== 'NA' ? order.feedback : "No feedback yet.";
+    // Assign values to global variables
+    textFeedback = order.reusable_field1 || "No text feedback available.";
+    orderFeedback = order.feedback !== 'NA' ? order.feedback : "No feedback yet.";
 
-	// Set tracking progress
-	const progressBar = document.getElementById('progress');
-	if (order.current_status === 'Shipped') progressBar.style.width = '50%';
-	else if (order.current_status === 'Delivered') progressBar.style.width = '100%';
+    // Set tracking progress
+    const progressBar = document.getElementById('progress');
+    if (order.current_status === 'Shipped') progressBar.style.width = '50%';
+    else if (order.current_status === 'Delivered') progressBar.style.width = '100%';
 
-	// Log the results in console
-	console.log("Text Feedback:", textFeedback);
-	console.log("Order Feedback:", orderFeedback);
+    // Log the results in console
+    console.log("Text Feedback:", textFeedback);
+    console.log("Order Feedback:", orderFeedback);
 }
+
 
 
 
@@ -410,6 +411,7 @@ function nextOrder() {
  * Updates navigation buttons based on the available orders.  
  */
 
+// Fetch the order data
 fetch('/my-orders', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -417,6 +419,10 @@ fetch('/my-orders', {
 })
 .then(response => response.json())
 .then(data => {
+    // Hide the loading spinner and show the content
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+    
     if (data.orders && data.orders.length > 0) {
         console.log("Order data received:", data.orders); // Debugging log
 
@@ -457,7 +463,11 @@ fetch('/my-orders', {
         alert('No orders found for this mobile number!');
     }
 })
-.catch(error => console.error('Error fetching order details:', error));
+.catch(error => {
+    // Hide the loading spinner if there's an error
+    document.getElementById('loading').style.display = 'none';
+    console.error('Error fetching order details:', error);
+});
 
 
 //LOGOUT
