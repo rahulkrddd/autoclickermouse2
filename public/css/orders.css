@@ -1,0 +1,520 @@
+/* Order Page Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	align-items: center;  /* Centers content horizontally */
+}
+
+/* Styling for the h1 */
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    justify-content: center; /* Center the content */
+    position: relative; /* Reference point for absolute positioning */
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 22px; /* Reduce font size for mobile */
+        padding: 8px 15px; /* Reduce padding */
+    }
+}
+
+
+.summary {
+    background: linear-gradient(135deg, #2c3e50, #4ca1af);
+    color: white;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+.summary:hover {
+		background: linear-gradient(236deg, #2c3e50, #4ca1af);
+	}
+
+.card {
+    background: white;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile-responsive styles */
+@media (max-width: 768px) {
+    .summary {
+        padding: 20px; /* Increased padding for a more comfortable feel */
+        font-size: 1.4rem; /* Larger font for better readability */
+    }
+
+    .card {
+        padding: 12px; /* Reduced padding for better mobile fit */
+        margin-top: 12px; /* Reduced space between cards */
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Slightly lighter shadow */
+    }
+}
+
+/* For very small screens (like mobile devices in portrait mode) */
+@media (max-width: 480px) {
+    .summary {
+        padding: 18px; /* Adjusted padding for smaller screens */
+        font-size: 1.2rem; /* Smaller font for tighter layouts */
+    }
+
+    .card {
+        padding: 10px; /* Slightly reduced padding */
+        margin-top: 8px; /* Reduced margin between cards */
+        font-size: 0.95rem; /* Adjusted font size for smaller screens */
+    }
+
+    .summary,
+    .card {
+        width: 100%; /* Ensure both elements take full width */
+        box-sizing: border-box; /* Prevent padding from affecting width */
+    }
+}
+
+
+
+h2 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+textarea {
+    width: 100%;
+    height: 60px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px;
+}
+
+button {
+    background: #28a745;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #218838;
+}
+
+select {
+    width: 100%;
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+/*****************************************************************************************/
+/* Tracking Container */
+.tracking-container {
+    text-align: center;
+    margin-top: 15px;
+}
+
+/* Progress Bar */
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #ddd;
+    border-radius: 5px;
+    position: relative;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+/* Progress Line */
+#progress {
+    width: 0%;
+    height: 8px;
+    background: linear-gradient(90deg, #4CAF50 0%, #2ecc71 100%);
+    border-radius: 5px;
+    transition: width 1.5s ease-in-out;
+    position: relative;
+}
+
+/* Pulsating Glow at the End of Progress */
+#progress::after {
+    content: "";
+    width: 14px; /* Small glow size */
+    height: 14px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    position: absolute;
+    left: 100%; /* Moves to the end of the progress */
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    animation: pulseGlow 1.5s infinite ease-in-out;
+}
+
+/* Pulsating Effect */
+@keyframes pulseGlow {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+    50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.4; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+}
+
+
+
+/* Tracking Steps */
+.tracking-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.step {
+    position: relative;
+    color: gray;
+}
+
+/* Active Step Highlight */
+.active {
+    font-weight: bold;
+    color: #28a745;
+}
+
+/* Hide Return Step Initially */
+.hidden {
+    display: none;
+}
+
+
+/*****************************************************************************************/
+
+/****************************FEEDBACK***************************/
+    .card {
+        background: #fff;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        margin: auto;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+    }
+    .feedback-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 10px 0;
+        font-weight: bold;
+        color: #333;
+    }
+    .rating-container {
+        display: flex;
+        gap: 4px;
+    }
+    .star {
+        font-size: 20px;
+        cursor: pointer;
+        transition: color 0.2s;
+        color: #ccc;
+    }
+    .star.selected, .star.hovered {
+        color: #f4b400;
+    }
+    textarea {
+        width: 100%;
+        height: 70px;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        font-size: 13px;
+        margin-top: 5px;
+    }
+
+	/* General button styles (you already have this) */
+	button {
+		color: white;
+		padding: 10px;
+		border: none;
+		cursor: pointer;
+		border-radius: 4px;
+		font-size: 14px;
+		font-weight: bold;
+		width: 100%;
+		margin-top: 10px;
+		transition: background 0.3s;
+	}
+	
+
+		
+.flip-btn{
+		background: linear-gradient(135deg, #2c3e50, #4ca1af);
+			}
+.submit-btn{
+		background: linear-gradient(135deg, #2c3e50, #4ca1af);
+			}
+.flip-btn:hover {
+		background: linear-gradient(236deg, #2c3e50, #4ca1af);
+	}
+.submit-btn:hover {
+		background: linear-gradient(236deg, #2c3e50, #4ca1af);
+	}
+
+/****************************FEEDBACK***************************/
+
+/**************************** Mpopup****************************/
+/* Overlay for the popup */
+.Mpopup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Dark background */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Ensure it's on top of other elements */
+    backdrop-filter: blur(5px); /* Apply blur effect to the background */
+}
+
+/* Popup content box */
+.popup-content {
+    background-color: #fff;
+    padding: 60px;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative; /* For positioning the close button inside */
+}
+
+/* Close button inside the popup */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px; /* Fixed width */
+    height: 40px; /* Fixed height */
+    font-size: 24px;
+    background-color: #ff5c5c; /* Red background */
+    color: white;
+    border: none;
+    display: flex;
+    justify-content: center; /* Center the text */
+    align-items: center; /* Center the text */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Close button hover effect */
+.close-btn:hover {
+    background-color: #ff2a2a; /* Darker red on hover */
+}
+
+
+/* Close button hover effect */
+.close-btn:hover {
+    background-color: #ff2a2a; /* Darker red on hover */
+}
+
+
+/* Feedback message styling */
+#popup-message {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333; /* Dark text for better readability */
+    margin-top: 20px;
+    line-height: 1.5;
+}
+
+/* Optional: Add a nice animation for the popup */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+.Mpopup {
+    animation: fadeIn 0.5s ease-in;
+}
+
+
+
+/* Mobile Styles */
+@media only screen and (max-width: 768px) {
+    /* Adjust padding and width for smaller screens */
+    .popup-content {
+        padding: 35px; /* Smaller padding for mobile */
+        width: 80%; /* Less width on smaller screens */
+        max-width: 350px; /* Adjust max-width for smaller screens */
+    }
+
+    .close-btn {
+        width: 30px; /* Smaller close button */
+        height: 30px; /* Smaller close button */
+        font-size: 18px; /* Smaller font size */
+    }
+
+    #popup-message {
+        font-size: 14px; /* Smaller font for better readability on mobile */
+    }
+}
+/**************************** Mpopup****************************/
+
+
+
+.top-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.top-buttons button {
+    background: linear-gradient(135deg, #2c3e50, #4ca1af);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.top-buttons button:hover {
+    background: linear-gradient(236deg, #2c3e50, #4ca1af);
+}
+
+/* Disabled button styles */
+.top-buttons button:disabled {
+    background: #b0bec5; /* Light grey background */
+    color: #607d8b; /* Darker grey text */
+    cursor: not-allowed; /* Change cursor to show the button is disabled */
+    opacity: 0.6; /* Lower opacity to indicate the disabled state */
+}
+
+@media (max-width: 768px) {
+    .top-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between; /* Spread buttons across */
+        gap: 5px; /* Reduce gap between buttons */
+    }
+
+    .top-buttons button {
+        font-size: 12px; /* Smaller font size */
+        padding: 6px 12px; /* Reduced padding */
+        min-width: 100px; /* Minimize button size */
+        transition: background-color 0.3s, transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transition for hover effects */
+    }
+
+    .top-buttons button:hover {
+        background-color: #4ca1af; /* Change background color on hover */
+        transform: scale(1.05); /* Slightly enlarge button on hover */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+    }
+
+    /* Ensure 3 buttons stay in one line */
+    .top-buttons:has(:nth-child(3):last-child) {
+        justify-content: space-between;
+    }
+
+    /* If there are 4 buttons, wrap them into 2 lines */
+    .top-buttons:has(:nth-child(4)) {
+        justify-content: center;
+    }
+
+    .top-buttons:has(:nth-child(4)) button {
+        width: 48%; /* Make buttons take 48% width, so two fit per row */
+    }
+}
+
+
+
+
+/**********************tracking id hyperlink ********************/
+.tracking-link {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.tracking-link:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+
+/***LOGOUT**/
+
+
+/* Style for the logout button container */
+.logout-container {
+    position: absolute;
+    top: 0; /* Position button within the h1 */
+    right: -0px; /* Adjusted position to not push too far right */
+}
+
+
+.logout-button {
+    background: linear-gradient(135deg, #2c3e50, #4ca1af);/* blue gradient */
+    color: white; /* White text color */
+    border: none; /* No border */
+    padding: 5px 10px; /* Small button size */
+    font-size: 14px; /* Small font size */
+    border-radius: 5px; /* Slightly rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Hover effect for logout button */
+.logout-button:hover {
+    background: linear-gradient(red, #FF6F61, #D9534F); /* Red gradient */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .logout-button {
+        font-size: 12px; /* Smaller font size on mobile */
+        padding: 4px 8px; /* Smaller padding on mobile */
+    }
+
+    .logout-container {
+        position: absolute;
+        top: 0px; /* Adjust top positioning to bring it above the heading */
+        left: 78%; /* Center the logout button horizontally */
+        transform: translateX(0%); /* Move the button slightly to the right */
+    }
+
+    h1 {
+        text-align: center;
+        color: #2c3e50;
+        padding-top: 35px; /* Ensure space for logout button above the heading */
+    }
+}
+
+
+/***LOGOUT**/
+
+
+/*************************************************************************************mobile*************************************/

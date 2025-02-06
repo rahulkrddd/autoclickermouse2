@@ -15,7 +15,7 @@
   <div id="mainContent">
     <!-- Header -->
     <header class="header">
-      <div class="header-content">
+      <div class="header-content">	
         <div class="logo">
           <img src="/images/logo.png" alt="Auto Clicker Logo">
         </div>
@@ -26,50 +26,92 @@
       </div>
     </header>
 
+
+
+
+<div style="text-align: center; margin-top: 20px;">
+    <button id="adminButton" class="custom-button">Admin</button>
+    <button id="myOrdersButton" class="custom-button">My Orders</button>
+<!--	<button class="custom-button" onclick="window.location.href='/review'">Reviews+</button>
+	<button class="custom-button" onclick="window.location.href='/FAQs'">FAQs</button>                    -->
+	<button class="custom-button" onclick="showMessage()">Reviews+</button>
+	<button class="custom-button" onclick="showMessage()">FAQs</button>
+</div>
+	<script>
+	function showMessage() {
+		alert("This page is temporarily unavailable.");
+	}
+	</script>
+
+<!-- Popup Modal -->
+<div id="Xpopup" class="Xpopup-container">
+    <div class="Xpopup-content">
+        <span id="closePopup" class="close-btn">&times;</span>
+        <h2 id="popupTitle"></h2>
+        <div id="popupFormContent"></div>
+        <p id="message" class="message"></p>
+        <form id="popupForm" method="POST">
+            <button type="submit" class="custom-button">Submit</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
     <!-- Main Content -->
     <main class="container">
       <!-- Product Section -->
-      <section class="product-section">
-        <div class="product-left">
-          <!-- Slideshow -->
-          <div class="slideshow-container">
-            <div class="slides active">
-              <img src="/images/img1.jpg" alt="Ergonomic Auto Clicker Mouse Design" class="slide-image">
-            </div>
-            <div class="slides">
-              <img src="/images/img2.jpg" alt="High Precision Auto Clicker Mouse" class="slide-image">
-            </div>
-            <div class="slides">
-              <img src="/images/img3.jpg" alt="Auto Clicker Mouse for Gamers" class="slide-image">
-            </div>
-            <div class="slides">
-              <img src="/images/img4.jpg" alt="Ergonomic Design for Long Hours" class="slide-image">
-            </div>
-            <div class="slides">
-              <img src="/images/img5.jpg" alt="Adjustable Click Speed" class="slide-image">
-            </div>
-          </div>
-        </div>
+		<section class="product-section">
+		<div class="product-left">
+			<!-- Slideshow -->
+			<div class="slideshow-container">
+			<div class="slides active">
+				<img src="/images/img1.jpg" alt="Ergonomic Auto Clicker Mouse Design" class="slide-image">
+			</div>
+			<div class="slides">
+				<img src="/images/img2.jpg" alt="High Precision Auto Clicker Mouse" class="slide-image">
+			</div>
+			<div class="slides">
+				<img src="/images/img3.jpg" alt="Auto Clicker Mouse for Gamers" class="slide-image">
+			</div>
+			<div class="slides">
+				<img src="/images/img4.jpg" alt="Ergonomic Design for Long Hours" class="slide-image">
+			</div>
+			<div class="slides">
+				<img src="/images/img5.jpg" alt="Adjustable Click Speed" class="slide-image">
+			</div>
+			</div>
+		</div>
+		
+		<!-- Fullscreen Modal for Image Zoom -->
+		<div class="fullscreen-modal" id="fullscreenModal">
+			<span class="close" id="closeModal">&#10006;</span>
+			<img src="" alt="Zoomed Image" id="zoomedImg" class="zoomed-img">
+		</div>
+		
+		<div class="product-right">
+		<h2>Why Choose Auto Clicker Mouse?</h2>
+		<ul>
+			<li><i class="fas fa-check-circle"></i> Infinite auto-clicking for time tracker tools like WAM and Prohance.</li>
+			<li><i class="fas fa-check-circle"></i> Plug-and-play—no software installation needed.</li>
+			<li><i class="fas fa-check-circle"></i> Perfect for IT professionals to bypass time tracker and save time.</li>
+			<li><i class="fas fa-check-circle"></i> Lightweight, ergonomic, and durable design.</li>
+		</ul>
+		<p class="price" id="productPrice" style="margin: 0; padding: 0; line-height: 1;"></p> <!-- Placeholder for price -->
+		<small class="gateway-note" id="priceNote" style="font-size: 0.6rem; display: block; margin: 0; line-height: 1;"></small> <!-- Placeholder for the note -->
+		<!-- Buy Now Button -->
+		<button class="buy-now" onclick="openForm()">Buy Now</button>
+		</div>
 
-        <!-- Fullscreen Modal for Image Zoom -->
-        <div class="fullscreen-modal" id="fullscreenModal">
-          <span class="close" id="closeModal">&#10006;</span>
-          <img src="" alt="Zoomed Image" id="zoomedImg" class="zoomed-img">
-        </div>
 
-        <div class="product-right">
-          <h2>Why Choose Auto Clicker Mouse?</h2>
-          <ul>
-            <li><i class="fas fa-check-circle"></i> Infinite auto-clicking for time tracker tools like WAM and Prohance.</li>
-            <li><i class="fas fa-check-circle"></i> Plug-and-play—no software installation needed.</li>
-            <li><i class="fas fa-check-circle"></i> Perfect for IT professionals to bypass time tracker and save time.</li>
-            <li><i class="fas fa-check-circle"></i> Lightweight, ergonomic, and durable design.</li>
-          </ul>
-          <p class="price">Price: ₹800</p>
-          <!-- Buy Now Button -->
-          <button class="buy-now" onclick="openForm()">Buy Now</button>
-        </div>
-      </section>
+
+
+
+		</section>
+
 
       <!-- Shorts Section -->
       <section class="product-videos">
@@ -82,10 +124,14 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
-      <button class="call-button" onclick="callNow()">📞 Call Us</button>
-      <p>&copy; 2025 Auto Clicker Mouse. All rights reserved.</p>
-    </footer>
+	<footer class="footer">
+	<button class="call-button" onclick="callNow()">📞 Call Us</button>
+	<p>&copy; 2025 Auto Clicker Mouse. <a href="/policies" class="policies-link" target="_blank"></a> All rights reserved.</p>
+	</footer>
+
+	
+
+
   </div>
 
   <!-- Popup Modal (moved outside of mainContent) -->
@@ -143,43 +189,7 @@
     </div>
   </div>
 
+
+
 </body>
 </html>
-
-
-	<!--this is just testing script to test without payment--------------------------------------
-	<script>
-		function testVerifyPayment() {
-			// Random data for the test
-			const paymentData = {
-				payment_id: "pay_12345",
-				order_id: "order_67890",
-				signature: "randomSignature123",
-				name: "John Doe",
-				address: "123 Test Street, Test City",
-				pincode: "123456",
-				mobile: "9876543210"
-			};
-	
-			// Send POST request to server-side verifyPayment function
-			fetch('/verifyPayment', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(paymentData)
-			})
-			.then(response => response.json())
-			.then(data => {
-				console.log("Response from server:", data);
-			})
-			.catch(error => {
-				console.error("Error:", error);
-			});
-		}
-	
-		// Call the test function
-		testVerifyPayment();
-
-	</script>
-		--this is just testing script test without payment-------------------------------------->

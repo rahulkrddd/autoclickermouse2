@@ -1,5 +1,33 @@
-let currentSlide = 0;
+// Global variables for product price
+let productPrice = 899; // Define the product price
+let collectGatewayCharges = "N"; // Define whether to collect gateway charges ('Y' or 'N')
+let gatewayChargePercentage = 1.0218; // Razorpay charges ~2.18%
 
+  document.addEventListener("DOMContentLoaded", () => {
+
+
+    const priceElement = document.getElementById("productPrice");
+    const priceNoteElement = document.getElementById("priceNote");
+
+    // Calculate the original price (Rs. 200 more)
+    const originalPrice = productPrice + 300;
+
+    // Update price element with current price and original price (strikethrough with red color and 75% opacity)
+    priceElement.innerHTML = `
+      Price: ₹<span>${productPrice}</span> 
+      <span style="text-decoration: line-through; text-decoration-color: rgba(255, 0, 0, 0.55); color: #888; font-size: 0.9em;">₹${originalPrice}</span>
+    `;
+
+    // Set note based on the value of collectGatewayCharges
+    if (collectGatewayCharges === "Y") {
+      priceNoteElement.textContent = "(Excluding payment gateway charges)";
+    } else {
+      priceNoteElement.textContent = "(Including payment gateway charges)";
+    }
+  });
+
+//REST OF THE CODING
+let currentSlide = 0;
 function showSlides() {
   const slides = document.querySelectorAll(".slides");
   slides.forEach((slide) => (slide.style.display = "none")); // Hide all slides
@@ -82,8 +110,10 @@ function validateName(value) {
 
 
 function validateAddress(value) {
-  return value.length >= 15 && (value.split(' ').length - 1) >= 3 && value.replace(/ /g, '').length >= 15;
+  const spaceCommaCount = (value.match(/[ ,]/g) || []).length; // Count spaces and commas
+  return value.length >= 15 && spaceCommaCount > 3 && value.replace(/[ ,]/g, '').length >= 15;
 }
+
 
 
 function validatePinCode(value) {
@@ -141,13 +171,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////// PAYMENT GATEWAY CONNECTION ///////////////////////////////////////////////////////
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("payNowButton").addEventListener("click", async () => {
     try {
-      let amount = 1; // Base price of the product
-      const collectGatewayCharges = "Y";
-      const gatewayChargePercentage = 1.0218; // Razorpay charges ~2.18%
+      let amount = productPrice; // Base price of the product
       if (collectGatewayCharges === "Y") {
         amount = Math.round(amount * gatewayChargePercentage);
       }
@@ -164,6 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const order = await response.json();
+	  console.log("amount= ", amount);
 
       // Step 2: Configure Razorpay options
       const options = {
@@ -238,6 +267,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+
+/////////////////////////////////////////// PAYMENT GATEWAY CONNECTION ///////////////////////////////////////////////////////
 
 
 
@@ -397,6 +429,34 @@ function openForm() {
 }
 
 
+//REORDER FROM ORDER PAGE 
+// Check if popup should be opened
+if (localStorage.getItem("showPopup") === "true") {
+	    payNowButton.disabled = false;
+    // Show popup immediately before page fully loads
+    document.addEventListener("DOMContentLoaded", function() {
+        let orderData = localStorage.getItem("orderData");
+
+        if (orderData) {
+            let order = JSON.parse(orderData);
+
+            // Fill the form fields
+            document.getElementById("fullName").value = order.name || "";
+            document.getElementById("address").value = order.address || "";
+            document.getElementById("pinCode").value = order.pincode || "";
+            document.getElementById("mobileNumber").value = order.mobile || "";
+
+            // Open the purchase form modal
+            openForm();
+
+            // Clear stored data after use
+            localStorage.removeItem("orderData");
+            localStorage.removeItem("showPopup");
+        }
+    });
+}
+
+//REORDER FROM ORDER PAGE 
 
 
 
@@ -516,3 +576,250 @@ function getNextBusinessDay() {
   nextDay.setDate(today.getDate() + 2); // Add two days
   return nextDay.toLocaleDateString();
 }
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+document.addEventListener('DOMContentLoaded', () => {
+    const adminButton = document.getElementById('adminButton');
+    const Xpopup = document.getElementById('Xpopup');
+    const closePopupButton = document.getElementById('closePopup');
+    const popupTitle = document.getElementById('popupTitle');
+    const popupFormContent = document.getElementById('popupFormContent');
+    const popupForm = document.getElementById('popupForm');
+    const myOrdersButton = document.getElementById('myOrdersButton');
+    
+    // Check if a mobile number is already stored
+    const storedMobileNumber = localStorage.getItem('mobileNumber');
+    
+    if (storedMobileNumber) {
+        // If a number exists, directly redirect to My Orders page
+        myOrdersButton.addEventListener('click', () => {
+            window.location.href = `/my-orders?mobileNumber=${encodeURIComponent(storedMobileNumber)}`;
+        });
+    } else {
+        // Otherwise, show the popup for mobile number entry
+        myOrdersButton.addEventListener('click', () => {
+            const contentHTML = `
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                    <label for="mobileNumber">Enter your contact number:</label>
+                    <input type="text" id="mobileNumber" name="mobileNumber" required>
+                </div>
+            `;
+            openPopup('My Orders', contentHTML, '/my-orders');
+            setTimeout(() => showMessage('Please enter your mobile registered number:', 'blue'), 300);
+        });
+    }	
+
+	// Function to open the popup and populate the form dynamically
+	function openPopup(title, contentHTML, actionURL) {
+		Xpopup.classList.add('active'); // Show the popup
+		popupTitle.textContent = title; // Set the title of the popup
+		popupFormContent.innerHTML = contentHTML; // Add content inside the popup form
+		popupForm.removeAttribute('action'); // Remove default action attribute of form
+		popupForm.setAttribute('data-action-url', actionURL); // Add a custom data-action-url attribute
+		document.body.classList.add('popup-active'); // Disable background when popup is active
+	
+		// Blur the page except the popup
+		document.querySelector('header').classList.add('blur'); // Add blur to header
+		document.querySelector('footer').classList.add('blur'); // Add blur to footer
+		document.body.classList.add('blur'); // Add blur to the rest of the body
+		document.querySelector('.Xpopup-container').classList.add('no-blur'); // Prevent blur on the popup
+	}
+	
+	// Function to close the popup
+	function closePopup() {
+		Xpopup.classList.remove('active'); // Hide the popup
+		document.body.classList.remove('popup-active'); // Re-enable background
+	
+		// Remove blur effect
+		document.querySelector('header').classList.remove('blur'); 
+		document.querySelector('footer').classList.remove('blur'); 
+		document.body.classList.remove('blur'); 
+	
+		// Remove 'no-blur' to allow future blur if needed
+		document.querySelector('.Xpopup-container').classList.remove('no-blur');
+	}
+
+
+    // Function to display messages
+    function showMessage(message, color) {
+        const existingMessage = popupFormContent.querySelector('.message');
+        if (existingMessage) {
+            existingMessage.remove();
+        }
+
+        let messageElement = document.createElement('div');
+        messageElement.textContent = message;
+        messageElement.style.color = color;
+        messageElement.style.marginTop = '10px';
+        messageElement.style.fontWeight = 'bold';
+        messageElement.style.textAlign = 'center';
+        messageElement.classList.add('message');
+        popupFormContent.appendChild(messageElement);
+    }
+
+    // Function to restrict input to numbers only
+    function restrictToNumbers(input) {
+        input.addEventListener('input', function () {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+    }
+
+    // Validation for Admin Login form
+    function validateAdminPassword(adminPassword) {
+        if (!adminPassword) {
+            showMessage('Please enter the admin password.', 'red');
+            return false;
+        }
+        if (adminPassword.length <= 3) {
+            showMessage('Password must be longer than 3 characters.', 'red');
+            return false;
+        }
+        const passwordPattern = /^[0-9]+$/;
+        if (!passwordPattern.test(adminPassword)) {
+            showMessage('Password should contain only numbers.', 'red');
+            return false;
+        }
+        return true;
+    }
+
+    // Async function to handle Admin Login
+	// Async function to handle Admin Login
+async function handleAdminLogin(event) {
+    event.preventDefault();
+    const adminPassword = document.getElementById("adminPassword").value.trim();
+
+    if (!validateAdminPassword(adminPassword)) {
+        return;
+    }
+
+    try {
+        const response = await fetch('/admin/admin-login', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ password: adminPassword }),
+            credentials: 'include',  // Ensure the session cookie is sent with the request
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            showMessage(result.message, 'green');
+            window.location.href = "/admin";  // Redirect to /admin
+        } else {
+            showMessage(result.message, 'red');
+        }
+    } catch (error) {
+        console.error("Error during admin login:", error);
+        showMessage("An error occurred while logging in. Please try again.", 'red');
+    }
+}
+
+	
+
+    // Validation for My Orders form
+    function validateMobileNumber(mobileNumber) {
+        if (!mobileNumber) {
+            showMessage('Please enter your mobile number.', 'red');
+            return false;
+        }
+        const mobileNumberPattern = /^[0-9]+$/;
+        if (!mobileNumberPattern.test(mobileNumber)) {
+            showMessage('Please enter a valid mobile number (only digits).', 'red');
+            return false;
+        }
+        if (mobileNumber.length < 10 || mobileNumber.length > 15) {
+            showMessage('Please enter a valid mobile number.', 'red');
+            return false;
+        }
+        return true;
+    }
+
+	// Async function to handle My Orders
+    // Function to handle My Orders with localStorage update
+    async function handleMyOrders(event) {
+        event.preventDefault();
+        const mobileNumber = document.getElementById("mobileNumber").value.trim();
+
+        if (!validateMobileNumber(mobileNumber)) {
+            return;
+        }
+
+        try {
+            const response = await fetch(popupForm.getAttribute('data-action-url'), {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ mobileNumber }),
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                // Store the mobile number in localStorage
+                localStorage.setItem('mobileNumber', mobileNumber);
+                
+                showMessage(data.message, 'green');
+                closePopup();
+
+                // Redirect to My Orders page
+                window.location.href = `/my-orders?mobileNumber=${encodeURIComponent(mobileNumber)}`;
+            } else {
+                showMessage("Unable to fetch orders. Please try again.", 'red');
+            }
+        } catch (error) {
+            console.error("Error during fetching orders:", error);
+            showMessage("An error occurred while fetching orders. Please try again.", 'red');
+        }
+    }
+	
+
+    // Admin button click handler
+    adminButton.addEventListener('click', () => {
+        const contentHTML = `
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                <label for="adminPassword">Please enter Admin password:</label>
+                <input type="password" id="adminPassword" name="adminPassword" required>
+            </div>
+        `;
+        openPopup('Admin Login', contentHTML, '/admin');
+        setTimeout(() => showMessage('This is only for Administrator.', 'blue'), 300);
+    });
+
+    // My Orders button click handler
+    myOrdersButton.addEventListener('click', () => {
+        const contentHTML = `
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                <label for="mobileNumber">Enter your contact number:</label>
+                <input type="text" id="mobileNumber" name="mobileNumber" required>
+            </div>
+        `;
+        openPopup('My Orders', contentHTML, '/my-orders');
+        setTimeout(() => showMessage('Please enter your mobile registered number:', 'blue'), 300);
+    });
+
+    // Close the popup when the close button is clicked
+    closePopupButton.addEventListener('click', closePopup);
+
+    // Restrict inputs to numbers for admin password and mobile number fields
+    popupFormContent.addEventListener('input', (event) => {
+        if (event.target.id === 'adminPassword' || event.target.id === 'mobileNumber') {
+            restrictToNumbers(event.target);
+        }
+    });
+
+    // Form submit handler to process the form submission based on the action URL
+    popupForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        if (popupForm.getAttribute('data-action-url') === '/admin') {
+            handleAdminLogin(event);
+        } else if (popupForm.getAttribute('data-action-url') === '/my-orders') {
+            handleMyOrders(event);
+        }
+    });
+});
+

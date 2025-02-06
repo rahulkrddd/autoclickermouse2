@@ -8,7 +8,7 @@ const PORT = 3000;
 const cors = require("cors");
 const axios = require("axios");
 const GITHUB_REPO = process.env.GITHUB_REPO;
-const FILE_PATH = 'payment.txt';
+const FILE_PATH = process.env.PAYMENT;
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const GITHUB_API_BASE = 'https://api.github.com';
 
@@ -17,6 +17,39 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(cors()); // Enable CORS for all routes
 
+
+const session = require('express-session');
+// Session middleware to store user sessions
+app.use(session({
+    secret: process.env.SESSIONKEY, // Secret key to sign the session ID cookie
+    resave: false,              	// Whether to resave the session on every request
+    saveUninitialized: true,    	// Whether to save an uninitialized session
+    cookie: { secure: false }   	// Set to true if using HTTPS
+}));
+
+
+
+// Import routes
+const myordersRoutes = require('./routes/Rorders');
+const adminRoutes = require('./routes/Radmin');
+const reviewRoutes = require('./routes/Rreview');
+
+// Use routes
+app.use('/my-orders', myordersRoutes);  // Match the frontend '/my-orders' path
+app.use('/admin', adminRoutes);         // Match the frontend '/admin' path
+app.use('/review', reviewRoutes);         // Match the frontend '/review' path
+
+// Set up the route for /review
+app.get('/review', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/review.html'));
+});
+
+// Set up the route for /review
+app.get('/FAQs', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/FAQ.html'));
+});
+
+
 // Replace with your Razorpay API credentials
 const razorpay = new Razorpay({
     key_id: process.env.RAZORPAY_KEY_ID, // Public key
@@ -24,12 +57,21 @@ const razorpay = new Razorpay({
 });
 
 // Route to create an order
+// Route to create an order
 app.post("/createOrder", async (req, res) => {
-  const { amount } = req.body;
+  let { amount } = req.body;
 
   try {
+    // Ensure the amount is at least 800; if less, set it to 1000
+    if (amount < 800) {
+      amount = 1000;
+    }
+
+    // Convert amount to paise (1 INR = 100 paise)
+    const amountInPaise = Math.round(amount * 100); // Round to ensure it's an integer
+
     const options = {
-      amount: amount * 100, // Convert amount to paise
+      amount: amountInPaise, // Amount in paise
       currency: "INR",
       receipt: `receipt_${Date.now()}`, // Unique receipt ID
     };
@@ -41,6 +83,7 @@ app.post("/createOrder", async (req, res) => {
     res.status(500).json({ error: "Error creating order" });
   }
 });
+
 
 app.post("/verifyPayment", async (req, res) => {
   const { payment_id, order_id, signature, name, address, pincode, mobile } = req.body;
@@ -57,7 +100,7 @@ app.post("/verifyPayment", async (req, res) => {
 
     // Check if the generated signature matches the received one
     //if (generatedSignature === signature) {
-    if (generatedSignature != signature) {
+    if (generatedSignature === signature) {
       console.log("Payment verification successful");
 
       // Handle the received customer data (name, address, pincode, mobile)
@@ -88,10 +131,35 @@ app.post("/verifyPayment", async (req, res) => {
 
 async function writeDataFile(data) {
   try {
-    // Convert the data to JSON format and encode it in base64
-    const fileContent = Buffer.from(JSON.stringify(data, null, 2), 'utf-8').toString('base64');
+    // Get the current date in DD-MON-YY format
+    const currentDate = new Date();
+    const day = currentDate.getDate().toString().padStart(2, '0');
+    const month = currentDate.toLocaleString('default', { month: 'short' }).toUpperCase();
+    const year = currentDate.getFullYear().toString().slice(-2);
+    const formattedDate = `${day}-${month}-${year}`;
 
-    // Fetch the current file information from GitHub to get the sha for the existing file
+    // Get the current time in HH:MM:SS format
+    const hours = currentDate.getHours().toString().padStart(2, '0');
+    const minutes = currentDate.getMinutes().toString().padStart(2, '0');
+    const seconds = currentDate.getSeconds().toString().padStart(2, '0');
+    const formattedTime = `${hours}:${minutes}:${seconds}`;
+
+    // Add date, time, and the new fields with default values
+    const recordWithDateTime = { 
+      ...data, 
+      date: formattedDate, 
+      time: formattedTime, 
+      current_status: "NA",
+      feedback: "NA",
+      feedback_timestamp: "NA",
+      reusable_field1: "NA",
+      reusable_field2: "NA"
+    };
+
+    // Convert the data to JSON format and encode it in base64
+    const fileContent = Buffer.from(JSON.stringify(recordWithDateTime, null, 2), 'utf-8').toString('base64');
+
+    // Fetch the current file information from GitHub to get the SHA for the existing file
     const { data: fileInfo } = await axios.get(`${GITHUB_API_BASE}/repos/${GITHUB_REPO}/contents/${FILE_PATH}`, {
       headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
     });
@@ -104,15 +172,15 @@ async function writeDataFile(data) {
       currentData = [currentData]; // Wrap the object into an array if it's not already an array
     }
 
-    // Now you can safely push to the array
-    currentData.push(data);
+    // Append the new record to the existing data array
+    currentData.push(recordWithDateTime);
 
     // Create a commit to update the file
     const updateResponse = await axios.put(`${GITHUB_API_BASE}/repos/${GITHUB_REPO}/contents/${FILE_PATH}`, {
       message: "Payment Data Update", // Commit message
       content: Buffer.from(JSON.stringify(currentData, null, 2), 'utf-8').toString('base64'), // Updated content
       sha: fileInfo.sha, // SHA of the current file to overwrite
-      branch: "main" // Make sure to use the correct branch (usually "main")
+      branch: "main" // Ensure the correct branch is used
     }, {
       headers: {
         Authorization: `token ${GITHUB_TOKEN}`
@@ -120,10 +188,10 @@ async function writeDataFile(data) {
     });
 
     console.log("Data successfully written to GitHub:");
-	// After the data is written, send an email
-    await sendOrderEmail(data); // Sending the email with payment data
-	
-	
+    
+    // After writing the data, send an email notification
+    await sendOrderEmail(recordWithDateTime); 
+    
   } catch (error) {
     console.error("Error writing to GitHub:", error);
   }
@@ -203,6 +271,9 @@ Mobile: ${paymentData.mobile}
 }
 
 
+app.get('/policies', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/policies.html'));  // Serves the policies.html file when /policies is accessed
+});
 
 
 app.set("view engine", "ejs");

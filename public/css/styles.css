@@ -57,6 +57,7 @@ h1, h2, h3 {
     opacity: 1; /* Fully visible */
     transform: translateY(0); /* End at its natural position */
   }
+  
 }
 
 
@@ -250,16 +251,17 @@ h1, h2, h3 {
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   width: 400px;
-  max-width: 90%;
+  max-width: 95%;
   position: relative; /* This ensures the close button is positioned relative to the modal */
 }
 
+/* Close Button Styling */
 /* Close Button Styling */
 .close-button {
   font-size: 1.5rem;
   color: white;
   cursor: pointer;
-  background-color: #ff4d4d; /* Light red background */
+  background-color: #DFDFDF; /* Light red background */
   border: none;
   border-radius: 5px; /* Square corners with rounded edges */
   width: 35px; /* Set width */
@@ -279,15 +281,14 @@ h1, h2, h3 {
 .close-button:hover {
   background-color: #e60000; /* Darker red when hovered */
   transform: scale(1.1); /* Slight scale-up effect on hover */
+  color: white;
 }
 
-/* Close Button Icon */
+/* Remove this rule */
 .close-button::before {
-  content: "×"; /* Using the multiplication sign as the close icon */
-  font-size: 1.5rem;
-  color: white;
-  line-height: 1;
+  content: ""; /* Remove the extra '×' content */
 }
+
 
 h2 {
   text-align: center;
@@ -320,6 +321,7 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 1rem;
+  font-family: inherit; /* Ensures it uses the same font as the parent container */
 }
 
 input:focus,
@@ -405,6 +407,11 @@ button:hover:not([disabled]) {
   text-transform: uppercase; /* Make it look more professional */
   position: relative;
   padding-bottom: 10px;
+}
+
+form button[type="submit"] {
+    display: block;
+    margin: 10px auto; /* Centers button horizontally */
 }
 
 .section-title::after {
@@ -573,7 +580,7 @@ button:hover:not([disabled]) {
 
   /* Modal adjustments for smaller screens */
   .modal-content {
-    width: 90%;  /* Take up most of the screen */
+    width: 100%;  /* Take up most of the screen */
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -644,7 +651,8 @@ button:hover:not([disabled]) {
     cursor: pointer;
     transition: background-color 0.3s;
     width: 100%; /* Make it full-width on mobile */
-    margin: 0 auto; /* Center the button */
+    /*margin: 0 auto; /* Center the button */
+	margin: 1rem auto 0 auto; /* Add top margin and center the button */
   }
 
   .buy-now:hover {
@@ -676,13 +684,19 @@ button:hover:not([disabled]) {
 
   /* Product Info Section */
   .product-right {
-    padding: 1rem;
+    padding: 0rem;
   }
 
+
   .product-right ul {
-    padding-left: 1.5rem;
-    list-style-type: disc;
+    padding-left: 0.5rem;
+    list-style-type: none;
     font-size: 1rem;
+  }
+
+  .product-right ul li {
+    margin-left: 0; /* Prevents unintended indentation */
+    padding-left: 0; /* Ensures alignment */
   }
 
   .price {
@@ -764,3 +778,235 @@ button:hover:not([disabled]) {
   filter: blur(5px); /* Adjust the blur intensity */
   transition: filter 0.3s ease; /* Smooth transition for the blur effect */
 }
+/************************excluding payment gateway charges *******************************************************/
+.note {
+  font-size: 0.7rem; /* Very small font size */
+  color: #666; /* Subtle gray color */
+  display: block; /* Ensure it appears on a new line */
+  margin-top: 5px; /* Add slight spacing from the price */
+}
+
+
+.gateway-note {
+  font-size: 0.6rem;
+  display: block;
+  margin: 0;
+  line-height: 1; /* Minimal line height */
+/*  color: #007BFF; /* Match the price color */
+}
+@media (max-width: 768px) {
+  .note {
+    text-align: center;
+  }
+
+  .gateway-note {
+    text-align: center;
+  }
+  
+}
+
+
+/************************excluding payment gateway charges *******************************************************/
+
+
+
+
+
+/************************policies*******************************************************/
+.policies-link {
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Use the same color as surrounding text */
+  cursor: pointer; /* Make it look clickable */
+}
+
+.policies-link:focus,
+.policies-link:hover,
+.policies-link:active {
+  color: inherit; /* Keep the color the same on hover, focus, and active states */
+  text-decoration: none; /* Remove underline on hover/focus/active */
+}
+/************************policies*******************************************************/
+
+
+
+/*****************************top 3 buttons ********************************************/
+/* Button styles */
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    width: 40%;
+    max-width: 600px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.custom-button {
+    background: linear-gradient(135deg, #2c3e50, #4ca1af);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 150px;
+    text-align: center;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+
+}
+
+.custom-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.custom-button:active {
+    background-color: #003d80;
+    transform: scale(0.98);
+}
+
+/* Xpopup Modal Styles */
+.Xpopup-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.Xpopup-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    position: relative;
+    width: 400px;
+    max-width: 100%;
+    text-align: center;
+}
+
+.message {
+    font-size: 14px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.1); /* Subtle background for the button */
+    border: none;
+    color: #555; /* Soft color */
+    padding: 10px; /* Equal padding for square shape */
+    width: 20px; /* Ensure width is equal to height */
+    height: 20px; /* Square shape */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth background change */
+}
+
+
+.close-btn:hover {
+    background-color: #d9534f; /* Red background on hover */
+    color: white; /* Change text color to white for contrast */
+}
+
+.close-btn:focus {
+    outline: none;
+}
+
+
+/* Blurred Background */
+.Xpopup-container.active {  /* Changed from popup-container.active */
+    display: flex;
+}
+
+/* Responsive for small screens */
+@media (max-width: 768px) {
+    .Xpopup-content {  /* Changed from popup-content */
+        width: 80%;
+    }
+}
+
+@media (max-width: 768px) {
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .custom-button {
+        width: 40%;
+        margin-bottom: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow */
+        padding: 14px 0;
+    }
+
+    .custom-button:last-child {
+        margin-bottom: 0;
+    }
+}
+
+
+
+/* Apply blur to the background when the popup is active */
+body.Xpopup-active {
+    filter: blur(5px);  /* Apply blur effect to the body */
+    pointer-events: none;  /* Disable interactions with blurred background */
+}
+
+/* Apply blur to specific sections like header and footer */
+header.blur, footer.blur {
+    filter: blur(5px);  /* Blur effect for header/footer */
+}
+
+/* Prevent the popup from being blurred */
+.Xpopup-container.no-blur {
+    filter: none !important; /* Remove blur from the popup container */
+    pointer-events: auto !important; /* Allow interaction with the popup */
+}
+
+/* Popup modal styles */
+.Xpopup-container.active {
+    display: flex;
+    backdrop-filter: blur(5px); /* Optional: background blur effect for modal area */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Darken the background */
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.Xpopup-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    position: relative;
+    width: 400px;
+    max-width: 100%;
+    text-align: center;
+}
+
+/* Optional: Responsive styling for small screens */
+@media (max-width: 768px) {
+    .Xpopup-content {
+        width: 80%;
+    }
+}
+
+/*****************************top 3 buttons ********************************************/

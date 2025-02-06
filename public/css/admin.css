@@ -1,0 +1,372 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+h2 {
+    text-align: center;
+    padding: 20px;
+    background-color: #4CAF50;
+    color: white;
+}
+
+#orders-container {
+    padding: 20px;
+    margin-top: 20px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+table tr:hover {
+    background-color: #f5f5f5;
+}
+
+#ordersTable {
+    display: none;
+}
+
+.loading {
+    text-align: center;
+    font-size: 20px;
+    color: #4CAF50;
+}
+
+/* Table Row (Hover and Style) */
+td.mobile:hover, td.pincode:hover, td.status:hover, td.feedback:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+/* Modal Styling */
+/* Close Button Styling */
+/* Close Button Styling */
+.close {
+    color: #fff; /* Text color */
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    z-index: 1; /* Ensure it stays above other content */
+    cursor: pointer;
+    background-color: gray; /* Background color */
+    border-radius: 50%; /* Makes the background a circle */
+    width: 40px; /* Size of the button */
+    height: 40px; /* Size of the button */
+    text-align: center; /* Aligns the text in the center */
+    line-height: 40px; /* Vertically centers the text */
+}
+
+/* Hover Effect for Close Button */
+.close:hover,
+.close:focus {
+    color: white;
+    background-color: red; /* Darker green on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease-in-out;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    margin: 0 auto;
+    border-radius: 8px;
+    width: 60%;
+    max-width: 600px;
+    position: relative; /* Ensure the close button stays inside the modal */
+}
+
+/* Optional: Modal header, if needed */
+.modal-content h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Optional: Add some padding and style the content within the modal */
+#feedbackDetails, #pincodeInfo {
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+
+/* Status Update Button */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Modal for Feedback Details */
+#feedbackDetails {
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Modal for Location Details */
+#pincodeInfo {
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Styling the search bar */
+#searchBar {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .modal-content {
+        width: 90%;
+    }
+
+    table, td, th {
+        font-size: 14px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    #searchBar {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    table, td, th {
+        font-size: 12px;
+    }
+
+    h2 {
+        font-size: 16px;
+    }
+
+    #searchBar {
+        font-size: 12px;
+    }
+}
+
+
+
+/* Add vertical margin to the button */
+#statusModal button {
+    margin-top: 20px;  /* Adds space above the button */
+    margin-bottom: 20px;  /* Adds space below the button */
+}
+
+
+/***************************************************************************************************/
+/***************************************************************************************************/
+
+/* Mobile View Adjustments */
+@media screen and (max-width: 768px) {
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        border: none;
+    }
+
+    /* Hide the table header */
+    table th {
+        display: none;
+    }
+
+    /* Display each row as a block and adjust padding */
+    tr {
+        display: block;
+        margin-bottom: 20px; /* Add more space between records */
+        border-radius: 8px; /* Round the corners for a smoother appearance */
+        overflow: hidden; /* Prevent overflow */
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for distinction */
+    }
+
+    td {
+        display: inline-block;
+        width: 32%; 
+        text-align: left;
+        background-color: #f9f9f9;  /* Light background for a clean look */
+        padding: 10px;
+        font-size: 14px;
+        border-radius: 4px;
+    }
+
+    /* Style the second line with a different background */
+    td:nth-child(4), td:nth-child(5), td:nth-child(6) {
+        background-color: #f3f3f3; /* Slightly different shade for the second line */
+    }
+
+    /* Distinguish odd and even rows with different colors */
+    tr:nth-child(odd) {
+        background-color: #209999; /* White background for odd rows */
+    }
+
+    tr:nth-child(even) {
+        background-color: #09f7fc; /* Light blue background for even rows */
+    }
+
+    /* Add labels before each field */
+    td.mobile::before {
+        content: "Mobile Number: ";
+        font-weight: bold;
+    }
+
+    td.name::before {
+        content: "Name: ";
+        font-weight: bold;
+    }
+
+    td.status::before {
+        content: "Current Status: ";
+        font-weight: bold;
+    }
+
+    td.pincode::before {
+        content: "Pin Code: ";
+        font-weight: bold;
+    }
+
+    td.date::before {
+        content: "Date: ";
+        font-weight: bold;
+    }
+
+    td.feedback::before {
+        content: "Feedback: ";
+        font-weight: bold;
+    }
+
+    /* Adjust the search bar and button for mobile view */
+    button {
+        padding: 8px 16px;
+        font-size: 14px;
+        border-radius: 4px;
+        margin-top: 10px;
+    }
+
+    #searchBar {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        font-size: 14px;
+        margin-bottom: 20px;
+        background-color: #fff;
+    }
+}
+
+/* Very Small Screens (max-width: 480px) */
+@media screen and (max-width: 480px) {
+    td.mobile, td.name, td.status, td.pincode, td.date, td.feedback {
+        font-size: 12px;
+        padding: 6px;
+    }
+
+    button {
+        font-size: 12px;
+        padding: 6px 14px;
+    }
+}
+
+
+
+/* Style for Tracking Details Input */
+#trackingDetails {
+    width: 97%; /* Full width */
+    padding: 8px; /* Padding for comfortable typing */
+    margin-top: 10px; /* Space above the input */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Readable font size */
+}
+
+/* Label Styling */
+label[for="trackingDetails"] {
+    display: block; /* Ensure it appears above the input */
+    font-weight: bold; /* Make it stand out */
+    margin-top: 15px; /* Space from previous elements */
+}
+
+/* Add focus effect */
+#trackingDetails:focus {
+    border-color: #007bff; /* Highlight when focused */
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Soft glow effect */
+}

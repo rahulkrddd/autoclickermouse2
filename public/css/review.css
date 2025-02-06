@@ -1,0 +1,180 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+h2 {
+    text-align: center;
+    padding: 20px;
+    background-color: #4CAF50;
+    color: white;
+}
+
+input[type="text"], select, #searchBar {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+table tr:hover {
+    background-color: #f5f5f5;
+}
+
+
+
+/* Modal Styling */
+/* Close Button Styling */
+/* Close Button Styling */
+.close {
+    color: #fff; /* Text color */
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    z-index: 1; /* Ensure it stays above other content */
+    cursor: pointer;
+    background-color: gray; /* Background color */
+    border-radius: 50%; /* Makes the background a circle */
+    width: 40px; /* Size of the button */
+    height: 40px; /* Size of the button */
+    text-align: center; /* Aligns the text in the center */
+    line-height: 40px; /* Vertically centers the text */
+}
+
+/* Hover Effect for Close Button */
+.close:hover,
+.close:focus {
+    color: white;
+    background-color: red; /* Darker green on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease-in-out;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    margin: 0 auto;
+    border-radius: 8px;
+    width: 60%;
+    max-width: 600px;
+    position: relative; /* Ensure the close button stays inside the modal */
+}
+
+/* Optional: Modal header, if needed */
+.modal-content h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+
+/* Status Update Button */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .modal-content {
+        width: 90%;
+    }
+
+    table, td, th {
+        font-size: 14px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    #searchBar {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    td.mobile, td.name, td.status, td.pincode, td.date, td.feedback {
+        font-size: 12px;
+    }
+
+    button {
+        font-size: 12px;
+        padding: 6px 14px;
+    }
+}
+
+/* Input and Label Styling */
+label[for="trackingDetails"] {
+    display: block;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+#trackingDetails {
+    width: 97%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#trackingDetails:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}

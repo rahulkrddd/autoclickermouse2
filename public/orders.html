@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+	<!-- Logout Button -->
+    <link rel="stylesheet" href="/css/orders.css">
+   	<!-- FontAwesome 6 Free -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+<body>
+    <div class="container">
+        <h1>📦 Your Order Details
+			<div class="logout-container">
+				<button id="logoutButton" class="logout-button">Logout</button>
+			</div>
+		</h1>
+		
+
+		<div class="button-container top-buttons">
+			<button onclick="window.location.href='/'">🏠 Home</button>
+			<button onclick="redirectToHome()">Reorder</button>
+			<button id="prev-order" onclick="previousOrder()">⬅️ Previous Order</button>
+			<button id="next-order" onclick="nextOrder()">➡️ Next Order</button>
+		</div>
+		
+        <!-- Order Summary -->
+		<div class="summary">
+			<p class="order-id"><strong>Order ID:</strong> <span id="order-id"></span></p>
+			<p class="order-status"><strong>Status:</strong> <span id="order-status"></span></p>
+		</div>
+		
+
+        <!-- Order Information -->
+        <div class="card">
+            <h2>👤 Customer Information</h2>
+            <p><strong>Name:</strong> <span id="order-name"></span></p>
+            <p><strong>Mobile:</strong> <span id="order-mobile"></span></p>
+            <p><strong>Address:</strong> <span id="order-address"></span>, <span id="order-pincode"></span></p>
+        </div>
+
+        <!-- Order Details -->
+        <div class="card">
+            <h2>📅 Order Details</h2>
+            <p><strong>Order Date:</strong> <span id="order-date"></span></p>
+            <p><strong>Order Time:</strong> <span id="order-time"></span></p>
+            <p><strong>Payment ID:</strong> <span id="payment-id"></span></p>
+        </div>
+
+        <!-- Tracking Section -->
+		<!-- Tracking Section -->
+		<!-- Tracking Section -->
+		<div class="card">
+			<h2>🚚 Tracking Details</h2>
+			<p><strong>Tracking ID:</strong> <span id="tracking-id"></span></p>
+		
+			<!-- Progress Bar Container -->
+			<!-- Progress Bar Container -->
+			<div class="tracking-container">
+				<div class="progress-bar">
+					<div id="progress"></div>
+				</div>
+				<div class="tracking-steps">
+					<span id="step1" class="step">🛒 Order Placed</span>
+					<span id="step2" class="step">✅ Order Confirmed</span>
+					<span id="step3" class="step">📦 Shipped</span>
+					<span id="step4" class="step">🚚 Delivered</span>
+					<span id="step5" class="step return hidden">🔄 Returned</span>
+				</div>
+			</div>
+			<p id="tracking-status"></p>
+
+
+<!-- Feedback Section -->
+<div class="flip-container" id="flip-container">
+	<div class="flip-content">
+		<button class="flip-btn" onclick="flipContent()" id="feedback-btn">Click to Share Feedback & Claim Your Free Warranty</button>
+
+		<div class="flipped-content" id="flipped-content" style="display: none;">
+			<p>Once you submit your feedback, you’ll be eligible for a one-month warranty.</p>
+			<!-- Add additional input fields or content for warranty claim here -->
+			<!-- Show the feedback form here -->
+			<div class="card" id="feedback-card" style="display: none;">
+				<h2>📝 Your Feedback</h2>
+				<div class="feedback-row">
+					<span>Shipping:</span>
+					<div class="rating-container" id="shipping-stars">
+						<span class="star" onmouseover="hoverStars('shipping',1)" onmouseleave="resetStars('shipping')" onclick="setRating('shipping',1)">★</span>
+						<span class="star" onmouseover="hoverStars('shipping',2)" onmouseleave="resetStars('shipping')" onclick="setRating('shipping',2)">★</span>
+						<span class="star" onmouseover="hoverStars('shipping',3)" onmouseleave="resetStars('shipping')" onclick="setRating('shipping',3)">★</span>
+						<span class="star" onmouseover="hoverStars('shipping',4)" onmouseleave="resetStars('shipping')" onclick="setRating('shipping',4)">★</span>
+						<span class="star" onmouseover="hoverStars('shipping',5)" onmouseleave="resetStars('shipping')" onclick="setRating('shipping',5)">★</span>
+					</div>
+				</div>
+				<div class="feedback-row">
+					<span>Packaging:</span>
+					<div class="rating-container" id="packaging-stars">
+						<span class="star" onmouseover="hoverStars('packaging',1)" onmouseleave="resetStars('packaging')" onclick="setRating('packaging',1)">★</span>
+						<span class="star" onmouseover="hoverStars('packaging',2)" onmouseleave="resetStars('packaging')" onclick="setRating('packaging',2)">★</span>
+						<span class="star" onmouseover="hoverStars('packaging',3)" onmouseleave="resetStars('packaging')" onclick="setRating('packaging',3)">★</span>
+						<span class="star" onmouseover="hoverStars('packaging',4)" onmouseleave="resetStars('packaging')" onclick="setRating('packaging',4)">★</span>
+						<span class="star" onmouseover="hoverStars('packaging',5)" onmouseleave="resetStars('packaging')" onclick="setRating('packaging',5)">★</span>
+					</div>
+				</div>
+				<div class="feedback-row">
+					<span>Satisfaction:</span>
+					<div class="rating-container" id="product-stars">
+						<span class="star" onmouseover="hoverStars('product',1)" onmouseleave="resetStars('product')" onclick="setRating('product',1)">★</span>
+						<span class="star" onmouseover="hoverStars('product',2)" onmouseleave="resetStars('product')" onclick="setRating('product',2)">★</span>
+						<span class="star" onmouseover="hoverStars('product',3)" onmouseleave="resetStars('product')" onclick="setRating('product',3)">★</span>
+						<span class="star" onmouseover="hoverStars('product',4)" onmouseleave="resetStars('product')" onclick="setRating('product',4)">★</span>
+						<span class="star" onmouseover="hoverStars('product',5)" onmouseleave="resetStars('product')" onclick="setRating('product',5)">★</span>
+					</div>
+				</div>
+				<p><strong>Additional Suggestions:</strong></p>
+				<textarea id="new-feedback" placeholder="Write your suggestions..."></textarea>
+				<button id="submit-feedback-btn" onclick="submitFeedback()" class="submit-btn">Submit Feedback</button>
+
+
+				<!-- Popup container -->
+				<div id="Mpopup" class="Mpopup" style="display:none;">
+					<div class="popup-content">
+						<span class="close-btn" onclick="closePopup()">×</span>
+						<p id="popup-message"></p>
+					</div>
+				</div>
+
+				<input type="hidden" id="feedback-value" value="543"> <!-- Example: 5 for shipping, 4 for packaging, 3 for product -->
+				<input type="hidden" id="reusable-field1" value="Great packaging and fast delivery!">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- CSS for Flip effect -->
+<style>
+	.flip-container {
+		text-align: center;
+		margin-top: 20px;
+	}
+	.flip-btn {
+		background-color: #4CAF50;
+		color: white;
+		padding: 10px 20px;
+		border: none;
+		cursor: pointer;
+		font-size: 16px;
+	}
+	.flip-btn:hover {
+		background-color: #45a049;
+	}
+	.flipped-content {
+		margin-top: 20px;
+		padding: 20px;
+		border: 1px solid #ddd;
+		background-color: #f9f9f9;
+	}
+</style>
+
+<!-- JavaScript for flip functionality -->
+
+
+
+
+
+    </div>
+
+    <script src="/js/orders.js"></script>
+</body>
+</html>

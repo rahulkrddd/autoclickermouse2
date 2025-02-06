@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - View Orders</title>
+    <link rel="stylesheet" href="css/review.css">
+    <script defer src="js/review.js"></script>
+</head>
+<body>
+
+    <h2>Admin Dashboard - View All Orders</h2>
+    
+    <!-- Search Bar for Global Search -->
+    <input type="text" id="searchBar" placeholder="Search Orders..." oninput="searchOrders()" style="width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ccc;">
+
+    <div id="orders-container">
+        <p class="loading">Loading orders...</p>
+        <table id="ordersTable" style="display: none;">
+            <thead>
+                <tr>
+                    <th onclick="sortTable(0)">Mobile</th>
+                    <th onclick="sortTable(1)">Name</th>
+                    <th onclick="sortTable(2)">Pincode</th>
+                    <th onclick="sortTable(3)">Date</th>
+                    <th onclick="sortTable(4)">Current Status</th>
+                    <th onclick="sortTable(5)">Feedback</th>
+                </tr>
+            </thead>
+            <tbody id="ordersBody"></tbody>
+        </table>
+    </div>
+
+
+
+    <!-- Modal for Order Details -->
+    <div id="orderDetailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('orderDetailsModal')">&times;</span>
+            <h3>Order Details</h3>
+            <p id="orderDetailsContent"></p>
+        </div>
+    </div>
+
+    <!-- Modal for Location Information -->
+    <div id="pincodeModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('pincodeModal')">&times;</span>
+            <h3>Location and State Info</h3>
+            <p id="pincodeInfo"></p>
+        </div>
+    </div>
+
+    <!-- Modal for Feedback Information -->
+    <div id="feedbackModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('feedbackModal')">&times;</span>
+            <h3>Feedback Details</h3>
+            <p id="feedbackDetails"></p>
+            <p id="reusableField1"></p>
+        </div>
+    </div>
+
+<!-- Modal for Status Update -->
+<div id="statusModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('statusModal')">&times;</span>
+        <h3>Update Order Status</h3>
+        
+        <label for="status">Select New Status:</label>
+        <select id="statusDropdown">
+            <option value="Order Placed">Order Placed</option>
+            <option value="Shipped">Shipped</option>
+            <option value="Delivered">Delivered</option>
+            <option value="Rejected">Rejected</option>
+        </select>
+
+        <!-- New Tracking Details Input -->
+        <label for="trackingDetails">Tracking Details:</label>
+        <input type="text" id="trackingDetails" name="trackingDetails" placeholder="Enter tracking details">
+
+
+        <button id="updateStatusBtn">Update Status</button>
+
+        <!-- Error message container -->
+        <div id="errorMessage" style="color: red; display: none;"></div>
+
+        <!-- Success message container -->
+        <div id="successMessage" style="color: green; display: none;"></div>
+    </div>
+</div>
+
+
+
+
+
+    <!-- Modal for Feedback Options -->
+    <div id="feedbackOptionsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('feedbackOptionsModal')">&times;</span>
+            <div id="feedbackOptionsContent"></div>
+        </div>
+    </div>
+
+</body>
+</html>
