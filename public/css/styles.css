@@ -950,6 +950,8 @@ button:hover:not([disabled]) {
         margin-bottom: 15px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow */
         padding: 14px 0;
+        margin-left: 10px; /* Increase horizontal space */
+        margin-right: 10px; /* Increase horizontal space */
     }
 
     .custom-button:last-child {
