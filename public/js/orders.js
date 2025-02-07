@@ -461,6 +461,7 @@ fetch('/my-orders', {
 
     } else {
         alert('No orders found for this mobile number!');
+		window.location.href = "/"; // Redirect to the home page
     }
 })
 .catch(error => {
