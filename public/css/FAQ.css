@@ -1,0 +1,353 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+
+}
+
+/* Navigation Bar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #2c3e50, #4ca1af); /* Subtle professional gradient */
+    padding: 15px 20px;
+	text-align: center;
+}
+
+.navbar .logo h1 {
+    color: #fff;
+    margin: 0;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.nav-links li a:hover {
+    color: #f4a261;
+}
+
+/* Sections */
+section {
+    padding: 40px 0;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* FAQ Section */
+.faq-item {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.accordion {
+    background: linear-gradient(135deg, #2c3e50, #4ca1af); /* Subtle professional gradient */
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 18px;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.accordion:hover, .accordion.active {
+    background-color: #e76f51;
+}
+
+.panel {
+    padding: 15px;
+    display: none;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+/* Contact Section */
+.contact-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #2c3e50, #4ca1af); /* Subtle professional gradient */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+	text-align: center;
+}
+
+.contact-button:hover {
+    background-color: #f4a261;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 15px;
+    background: #333;
+    color: white;
+    margin-top: 20px;
+}
+
+
+/****************************************************************mobile**************************************************/
+/* Mobile Styles */
+@media screen and (max-width: 768px) {
+    .container {
+        width: 85%;
+        padding: 15px;
+    }
+	
+	h1.faq-title {
+		color: black !important; /* Forces black color */
+	}
+	
+
+    /* Navbar Styling */
+    .navbar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        background: transparent;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Navigation Buttons */
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px 0;
+        width: 100%;
+    }
+
+    .nav-links a {
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 12px;
+        border-radius: 5px;
+        background: linear-gradient(135deg, #2c3e50, #4ca1af); /* Subtle professional gradient */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        transition: 0.3s ease-in-out;
+    }
+
+    .nav-links a:hover {
+        background: linear-gradient(236deg, #2c3e50, #4ca1af);
+        transform: scale(1.05);
+    }
+
+    /* FAQ Section */
+    .accordion {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    .panel {
+        font-size: 14px;
+    }
+
+    /* Contact Button */
+    .contact-button {
+        width: 80%;
+        text-align: center;
+        padding: 12px;
+        display: block;
+        margin: 10px auto;
+    }
+
+
+
+	
+	.footer {
+		background: linear-gradient(135deg, #2c3e50, #4ca1af);
+		color: white;
+		text-align: center;
+		padding: 15px;
+	}
+	
+}
+
+
+
+
+
+/********************** CONTACT *************/
+/* Contact Section Styling */
+.contact-section-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    max-width: 1030px;
+    margin: 0px auto;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Title */
+.contact-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Paragraph */
+.contact-text {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Contact Button */
+.contact-button {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.contact-button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .contact-section-wrapper {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .contact-title {
+        font-size: 20px;
+    }
+
+    .contact-text {
+        font-size: 14px;
+    }
+
+    .contact-button {
+        font-size: 14px;
+        padding: 10px 16px;
+    }
+}
+
+/********************** CONTACT *************/
+
+
+/********************************************FAQ Search & Category Filter***********************************/
+/* Container to Align Search Bar & Category Filter */
+/******************************************** FAQ Search & Category Filter ***********************************/
+/* Container to Align Search Bar & Category Filter */
+.faq-search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    flex-wrap: wrap; /* Ensures responsiveness */
+}
+
+/* Common Styling for Input & Select */
+#faq-search,
+.faq-category-filter select {
+    width: 100%;
+    max-width: 300px;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+    transition: 0.3s;
+    text-align: center;
+}
+
+/* Search Bar Styling */
+#faq-search {
+    background: #fff;
+}
+
+/* Category Filter */
+.faq-category-filter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 300px;
+}
+
+/* Dropdown Styling */
+.faq-category-filter select {
+    background: #fff;
+    cursor: pointer;
+    appearance: none;
+}
+
+/* Hover and Focus Effects */
+#faq-search:focus,
+.faq-category-filter select:focus {
+    border-color: #007bff;
+    box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .faq-search-container {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+    }
+
+    #faq-search,
+    .faq-category-filter select {
+        width: 90%;
+    }
+}
+
+/******************************************** FAQ Search & Category Filter ***********************************/
+
+/********************************************FAQ Search & Category Filter***********************************/
