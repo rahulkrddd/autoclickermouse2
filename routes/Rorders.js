@@ -89,82 +89,88 @@ router.post('/submit-feedback', async (req, res) => {
         return res.status(400).json({ error: 'Order data is missing or invalid' });
     }
 
-    // Calculate the average of shipping, packaging, and product
-    const averageRating = Math.ceil((shipping + packaging + product) / 3);
+    // Ensure ratings are treated as numbers to prevent concatenation issues
+    const shippingRating = Number(shipping) || 0;
+    const packagingRating = Number(packaging) || 0;
+    const productRating = Number(product) || 0;
 
-    // Combine shipping, packaging, and product into a new feedback value
-    const combinedFeedback = `${shipping}${packaging}${product}${averageRating}`;  // Format as "shipping, packaging, product, average"
+    // Calculate the average rating
+    const averageRating = Math.ceil((shippingRating + packagingRating + productRating) / 3);
+    const combinedFeedback = `${shippingRating}${packagingRating}${productRating}${averageRating}`;
 
-    // Get current timestamp in IST (Indian Standard Time)
-    const istOffset = 5.5 * 60;  // IST is UTC +5:30
-    const currentTimestamp = new Date(new Date().getTime() + istOffset * 60000).toISOString();  // Get the timestamp in ISO format
+    // Get current timestamp in IST
+    const istOffset = 5.5 * 60 * 60 * 1000;
+    const currentTimestamp = new Date(Date.now() + istOffset).toISOString();
 
-    // Update the feedback field and reusable_field1 based on the order data
-    order.feedback = combinedFeedback;  // Set feedback to combined shipping, packaging, and product values
-    order.reusable_field1 = feedback || order.reusable_field1;  // Set reusable_field1 to the incoming feedback if available
-    order.feedback_timestamp = currentTimestamp;  // Set the feedback timestamp to current timestamp in IST
+    // Update order details
+    order.feedback = combinedFeedback;
+    order.reusable_field1 = feedback || order.reusable_field1;
+    order.feedback_timestamp = currentTimestamp;
 
     try {
-        // Fetch the current file content from the GitHub repository
         const url = `${GITHUB_API_BASE}/repos/${GITHUB_REPO}/contents/${FILE_PATH}`;
+        
+        // **Step 1: Fetch the latest file content and SHA**
         const response = await axios.get(url, {
             headers: {
                 'Authorization': `token ${GITHUB_TOKEN}`,
+                'Accept': 'application/vnd.github.v3+json',
             }
         });
 
         const data = response.data;
+        const latestSHA = data.sha; // Fetch the latest SHA to avoid conflicts
 
-        // Decode the base64 content of the file
-        const fileContent = Buffer.from(data.content, 'base64').toString('utf-8');
-        
-        // Parse the file content (assuming JSON format in the file)
-        const orders = JSON.parse(fileContent);
-        
-        // Find the order by order_id
+        // Decode and parse JSON file content
+        let orders = [];
+        try {
+            const fileContent = Buffer.from(data.content, 'base64').toString('utf-8');
+            orders = JSON.parse(fileContent);
+        } catch (err) {
+            console.error("Error parsing file content:", err);
+            return res.status(500).json({ error: "Invalid file format on GitHub" });
+        }
+
+        // Find and update the order
         const orderIndex = orders.findIndex(o => o.order_id === order.order_id);
         if (orderIndex === -1) {
             return res.status(404).json({ error: 'Order not found in the file' });
         }
+        orders[orderIndex] = order;
 
-        // Update the order details
-        orders[orderIndex] = order;  // Replace the order with the updated one
-
-        // Prepare the updated content to save back to GitHub
+        // Prepare new file content
         const updatedContent = JSON.stringify(orders, null, 2);
-
-        // Re-encode the updated content to base64
         const encodedContent = Buffer.from(updatedContent).toString('base64');
 
-        // Update the file on GitHub with the new content
+        // **Step 2: Update the file with the latest SHA**
         const updateResponse = await axios.put(url, {
+            message: 'Updated feedback and reusable_field1 for order',
+            content: encodedContent,
+            sha: latestSHA, // Use the latest SHA to prevent conflicts
+        }, {
             headers: {
                 'Authorization': `token ${GITHUB_TOKEN}`,
                 'Content-Type': 'application/json',
-            },
-            data: {
-                message: 'Updated feedback and reusable_field1 for order',
-                content: encodedContent,
-                sha: data.sha,  // Provide the SHA of the existing file for the commit
+                'Accept': 'application/vnd.github.v3+json',
             }
         });
 
-        const updateData = updateResponse.data;
-        if (updateResponse.status === 200) {
+        if (updateResponse.status === 200 || updateResponse.status === 201) {
             return res.json({
                 message: 'Feedback submitted and file updated successfully!',
                 orderDetails: order,
-                feedbackDetails: { shipping, packaging, product, feedback },
+                feedbackDetails: { shipping: shippingRating, packaging: packagingRating, product: productRating, feedback },
             });
         } else {
-            console.error('Error updating file on GitHub:', updateData);
+            console.error('Error updating file on GitHub:', updateResponse.data);
             return res.status(500).json({ error: 'Failed to update the file on GitHub' });
         }
 
     } catch (error) {
-        console.error('Error processing feedback submission:', error);
+        console.error('Error processing feedback submission:', error.response?.data || error.message);
         return res.status(500).json({ error: 'Internal server error' });
     }
 });
+
 
 module.exports = router;
