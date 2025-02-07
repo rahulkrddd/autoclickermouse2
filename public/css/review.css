@@ -411,6 +411,16 @@ header p {
     display: flex !important;
 }
 
+@media (max-width: 480px) {
+
+
+    .modal-content {
+        max-width: 90%;
+		margin-right: 45px;
+
+    }
+}
+
 /************************* POPUP WITH MORE DETAILS **********************************/
 
 
