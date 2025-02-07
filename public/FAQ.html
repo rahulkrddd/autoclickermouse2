@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Auto Clicker Mouse FAQ - Get all your questions answered!">
     <title>Auto Clicker Mouse - Frequently Asked Questions</title>
-    <link rel="stylesheet" href="/css/review.css">
+    <link rel="stylesheet" href="/css/FAQ.css">
 </head>
 <body>
 
@@ -13,96 +13,63 @@
     <header>
         <nav class="navbar">
             <div class="logo">
-                <h1>AutoClicker</h1>
+                <h1 class="faq-title">FAQ Page</h1>
             </div>
             <ul class="nav-links">
-                <li><a href="#about">About</a></li>
+                <li><a href="/">Home</a></li>
                 <li><a href="#faq">FAQ</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <h2 class="section-title">Welcome to AutoClicker</h2>
-            <p>Your go-to solution for automated mouse clicks! The Auto Clicker Mouse helps you save time and energy with easy, customizable clicking options. Learn more below.</p>
-        </div>
-    </section>
-
     <!-- FAQ Section -->
     <section id="faq" class="faq-section">
         <div class="container">
             <h2 class="section-title">Frequently Asked Questions</h2>
 
-            <div class="faq-item">
-                <button class="accordion">1. What is an Auto Clicker Mouse?</button>
-                <div class="panel">
-                    <p>An Auto Clicker Mouse is a device designed to automatically perform mouse clicks at preset intervals, reducing the need for manual clicking in repetitive tasks or gaming.</p>
-                </div>
-            </div>
+            <!-- Search Bar -->
+<div class="faq-search-container">
+    <input type="text" id="faq-search" placeholder="Search FAQs..." onkeyup="filterFAQ()">
+    <div class="faq-category-filter">
+        <select id="category-select" onchange="filterByCategory(this.value)">
+            <option value="All">All Categories</option>
+            <option value="General">General</option>
+            <option value="Payment">Payment</option>
+            <option value="Dispatch">Dispatch</option>
+            <option value="Delivery">Delivery</option>
+            <option value="Services">Services</option>
+        </select>
+    </div>
+</div>
 
-            <div class="faq-item">
-                <button class="accordion">2. How does the Auto Clicker Mouse work?</button>
-                <div class="panel">
-                    <p>The mouse features a button that you can configure to click automatically at set intervals or when certain conditions are met. It’s ideal for tasks that require constant clicking, such as gaming, data entry, and testing.</p>
-                </div>
-            </div>
 
-            <div class="faq-item">
-                <button class="accordion">3. Is the Auto Clicker Mouse customizable?</button>
-                <div class="panel">
-                    <p>Yes! The mouse allows you to adjust the speed, click intervals, and even set different clicking patterns to suit your needs.</p>
-                </div>
-            </div>
 
-            <div class="faq-item">
-                <button class="accordion">4. Can I use the Auto Clicker Mouse for gaming?</button>
-                <div class="panel">
-                    <p>Absolutely! Many gamers use the Auto Clicker Mouse for games that require rapid clicking, providing an edge during gameplay without tiring out their hands.</p>
-                </div>
-            </div>
 
-            <div class="faq-item">
-                <button class="accordion">5. Does the Auto Clicker Mouse work with all operating systems?</button>
-                <div class="panel">
-                    <p>Yes, the Auto Clicker Mouse is compatible with most operating systems, including Windows, macOS, and Linux. We provide easy-to-use software to set up and control the mouse.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="accordion">6. Is the Auto Clicker Mouse covered by a warranty?</button>
-                <div class="panel">
-                    <p>Yes, all Auto Clicker Mice come with a 1-year warranty, which covers any manufacturing defects or issues that occur under normal use.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="accordion">7. How do I set up the Auto Clicker Mouse?</button>
-                <div class="panel">
-                    <p>The setup is simple! Just install the included software, connect the mouse, and configure your preferred clicking options. We also provide a user manual with step-by-step instructions.</p>
-                </div>
-            </div>
-
+            <!-- FAQ Container (Populated Dynamically) -->
+            <div id="faq-content"></div>
         </div>
     </section>
 
     <!-- Contact Section -->
     <section id="contact" class="contact-section">
-        <div class="container">
-            <h2 class="section-title">Get in Touch</h2>
-            <p>If you have more questions or need support, feel free to contact us. We're here to help!</p>
-            <a href="mailto:support@autoclickermouse.com" class="contact-button">Contact Support</a>
-        </div>
+		<div class="contact-section-wrapper">
+			<h2 class="contact-title">Get in Touch</h2>
+			<p class="contact-text">If you have more questions or need support, feel free to contact us. We're here to help!</p>
+			<a href="tel:+918839623805" class="contact-button">Contact Support</a>
+		</div>
+		
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2025 AutoClicker Mouse | All Rights Reserved</p>
-        </div>
+    <footer class="footer">
+        <p>&copy; <span id="year"></span> AutoClicker Mouse | All Rights Reserved</p>
     </footer>
+
+    <script>
+        // Auto-update the year in the footer
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
 
     <script src="/js/FAQ.js"></script>
 </body>
