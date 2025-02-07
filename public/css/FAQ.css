@@ -346,6 +346,9 @@ footer {
     .faq-category-filter select {
         width: 90%;
     }
+    .faq-category-filter select {
+		    background: #BEBEBE;
+	}
 }
 
 /******************************************** FAQ Search & Category Filter ***********************************/
