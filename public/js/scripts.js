@@ -460,6 +460,46 @@ if (localStorage.getItem("showPopup") === "true") {
 
 
 
+//REDIRECT FROM REVIEW PAGE TO HOME PAGE , IF MOBILE NUMBER PRESENT THEN DIRECTLY ORDER PAGE 
+// Ensure openPopup is defined before use
+function openPopup(title, contentHTML, actionURL) {
+    const Xpopup = document.getElementById('Xpopup');
+    const popupTitle = document.getElementById('popupTitle');
+    const popupFormContent = document.getElementById('popupFormContent');
+    const popupForm = document.getElementById('popupForm');
+
+    Xpopup.classList.add('active');
+    popupTitle.textContent = title;
+    popupFormContent.innerHTML = contentHTML;
+    popupForm.setAttribute('data-action-url', actionURL);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const storedMobileNumber = localStorage.getItem('mobileNumber');
+
+    // Check if the user is redirected from the Review Page
+    if (localStorage.getItem('openOrdersPopup') === 'true') {
+        localStorage.removeItem('openOrdersPopup'); // Remove flag to prevent repeated popups
+
+        if (storedMobileNumber) {
+            // If a number exists, redirect to My Orders immediately
+            window.location.href = `/my-orders?mobileNumber=${encodeURIComponent(storedMobileNumber)}`;
+        } else {
+            // Otherwise, show the popup for mobile number entry
+            const contentHTML = `
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                    <label for="mobileNumber">Enter your contact number:</label>
+                    <input type="text" id="mobileNumber" name="mobileNumber" required>
+                </div>
+            `;
+            openPopup('My Orders', contentHTML, '/my-orders');
+            setTimeout(() => showMessage('Please enter your mobile registered number:', 'blue'), 300);
+        }
+    }
+});
+//REDIRECT FROM REVIEW PAGE TO HOME PAGE , IF MOBILE NUMBER PRESENT THEN DIRECTLY ORDER PAGE 
+
+
 
 
 function closeForm() {
@@ -769,11 +809,11 @@ async function handleAdminLogin(event) {
                 // Redirect to My Orders page
                 window.location.href = `/my-orders?mobileNumber=${encodeURIComponent(mobileNumber)}`;
             } else {
-                showMessage("This mobile number does not exist in our system.", 'red');
+                showMessage("This mobile number is not present in database. Please try again.", 'red');
             }
         } catch (error) {
             console.error("Error during fetching orders:", error);
-            showMessage("An error occurred while fetching orders. Please try again.", 'red');
+            showMessage("This mobile number does not exist in our system.", 'red');
         }
     }
 	
