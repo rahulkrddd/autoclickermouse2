@@ -1,147 +1,214 @@
-// Declare orders globally
-let orders = [];
+let currentPage = 1;
+const reviewsPerPage = 3;  // Set reviews per page to 3
 
-// Fetch orders when the page loads
+// Modified function to handle pagination
 document.addEventListener("DOMContentLoaded", async function () {
-    const ordersTable = document.getElementById("ordersTable");
-    const ordersBody = document.getElementById("ordersBody");
+    const reviewsContainer = document.getElementById("reviews-container");
     const loadingText = document.querySelector(".loading");
 
     try {
-        // Fetch data from the server
-        const response = await fetch('/review/getOrders', {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
+        const response = await fetch('/review/getOrders');
+        if (!response.ok) throw new Error(`Failed to fetch orders: ${response.status}`);
 
-        if (!response.ok) {
-            throw new Error(`Failed to fetch orders. Status: ${response.status}`);
+        const orders = await response.json();
+        loadingText.style.display = "none";
+
+        // Filter out reviews with "NA"
+        const filteredOrders = orders.filter(order => order.feedback !== "NA");
+
+        // Get the total number of pages
+        const totalPages = Math.ceil(filteredOrders.length / reviewsPerPage);
+
+        // Function to load reviews for the current page
+        function loadReviews(page) {
+            reviewsContainer.innerHTML = ""; // Clear previous reviews
+            const startIndex = (page - 1) * reviewsPerPage;
+            const endIndex = Math.min(page * reviewsPerPage, filteredOrders.length);
+            const reviewsToShow = filteredOrders.slice(startIndex, endIndex);
+
+            reviewsToShow.forEach(order => {
+                const reviewCard = document.createElement("div");
+                reviewCard.classList.add("review-card");
+
+                // Masked mobile number
+                const maskedMobile = maskMobile(order.mobile);
+
+                // Handling tracking details
+                let trackingDetailsContent;
+                if (order.reusable_field2.startsWith("http")) {
+                    trackingDetailsContent = `
+                        <button class="tracking-btn" onclick="window.open('${order.reusable_field2}', '_blank')">Track Order</button>
+                    `;
+                } else {
+                    trackingDetailsContent = `
+                        <button class="tracking-toggle-btn" onclick="revealTrackingDetails(this)">TRACK ORDER</button>
+                        <span class="tracking-details" style="display: none;">${order.reusable_field2}</span>
+                    `;
+                }
+
+                // Add the review content to the card
+                reviewCard.innerHTML = `
+                    <div class="review-header">
+                        <h3>${order.name} <span class="details">(<span class="mobile-prefix">${order.mobile.slice(0, -3)}</span><span class="mobile-blur">${order.mobile.slice(-3)}</span>)</span></h3>
+                        <p class="address">${order.address}, ${order.pincode}</p>
+                        <p><strong>Order Date:</strong> ${order.date}</p>
+                    </div>
+
+                    <div class="rating">
+                        <div class="rating-item">
+                            <strong>Shipping:</strong>
+                            <div class="stars">${getStars(order.feedback.charAt(0))}</div>
+                        </div>
+                        <div class="rating-item">
+                            <strong>Packaging:</strong>
+                            <div class="stars">${getStars(order.feedback.charAt(1))}</div>
+                        </div>
+                        <div class="rating-item">
+                            <strong>Quality:</strong>
+                            <div class="stars">${getStars(order.feedback.charAt(2))}</div>
+                        </div>
+                        <div class="rating-item">
+                            <strong>Overall:</strong>
+                            <div class="stars">${getStars(order.feedback.charAt(3))}</div>
+                        </div>
+                    </div>
+
+                    <div class="tracking-details-container">
+                        <strong>Tracking Details:</strong>
+                        ${trackingDetailsContent}
+                    </div>
+
+                    <div class="review-feedback">
+                        <strong>Feedback:</strong>
+                        <span class="feedback-text">${order.reusable_field1}</span>
+                    </div>
+
+                    <div class="more-details">
+                        <a href="#" class="more-details-link" onclick="showMoreDetails('${order.name}', '${order.current_status}', '${order.order_id}')">... More Details</a>
+                    </div>
+                `;
+
+                reviewsContainer.appendChild(reviewCard);
+            });
         }
 
-        // Populate the orders array with the fetched data
-        orders = await response.json();
+		// Function to handle pagination controls
+		function renderPagination(totalPages) {
+			const paginationContainer = document.getElementById("pagination-container");
+			paginationContainer.innerHTML = ""; // Clear previous pagination buttons
+		
+			// Previous page button
+			const prevButton = document.createElement("button");
+			prevButton.textContent = "Previous";
+			prevButton.disabled = currentPage === 1;
+			prevButton.onclick = () => {
+				if (currentPage > 1) {
+					currentPage--;
+					loadReviews(currentPage);
+					renderPagination(totalPages);
+				}
+			};
+		
+			// Next page button
+			const nextButton = document.createElement("button");
+			nextButton.textContent = "Next";
+			nextButton.disabled = currentPage === totalPages;
+			nextButton.onclick = () => {
+				if (currentPage < totalPages) {
+					currentPage++;
+					loadReviews(currentPage);
+					renderPagination(totalPages);
+				}
+			};
+		
+			paginationContainer.appendChild(prevButton);
+			paginationContainer.appendChild(nextButton);
+		}
+ 
+        // Load reviews for the current page
+        loadReviews(currentPage);
+        renderPagination(totalPages);
 
-        // Sort orders by date (descending)
-        orders.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-        loadingText.style.display = "none";
-        ordersTable.style.display = "table";
-
-        // Populate the table with orders data
-        orders.forEach((order) => {
-            const row = document.createElement("tr");
-			row.innerHTML = `
-				<td class="mobile" onclick="showOrderDetails('${order.mobile}')">${order.mobile}</td>
-				<td>${order.name}</td>
-				<td class="pincode">${order.pincode}</td>
-				<td>${order.date}</td>
-				<td class="status">${order.current_status}</td>
-				<td class="feedback">${order.feedback}</td>
-			`;
-			
-            ordersBody.appendChild(row);
-        });
     } catch (error) {
-        console.error("Error fetching orders:", error);
-        loadingText.textContent = "Failed to load orders.";
+        console.error("Error fetching reviews:", error);
+        loadingText.textContent = "Failed to load reviews.";
     }
 });
 
-// Search function to filter orders based on user input
-function searchOrders() {
-    const searchTerm = document.getElementById("searchBar").value.toLowerCase();
-    const filteredOrders = orders.filter(order => {
-        return order.mobile.toLowerCase().includes(searchTerm) || 
-            order.name.toLowerCase().includes(searchTerm) ||
-            order.pincode.toLowerCase().includes(searchTerm) ||
-            order.address.toLowerCase().includes(searchTerm) ||
-            order.date.toLowerCase().includes(searchTerm) ||
-            order.time.toLowerCase().includes(searchTerm) ||
-            order.order_id.toLowerCase().includes(searchTerm) ||
-            order.payment_id.toLowerCase().includes(searchTerm) ||
-            order.current_status.toLowerCase().includes(searchTerm) ||
-            (order.feedback && order.feedback.toLowerCase().includes(searchTerm)) ||
-            order.feedback_timestamp.toLowerCase().includes(searchTerm) ||
-            order.reusable_field1.toLowerCase().includes(searchTerm) ||
-            order.reusable_field2.toLowerCase().includes(searchTerm);
-    });
 
-    // Clear the table and render the filtered orders
-    const ordersBody = document.getElementById("ordersBody");
-    ordersBody.innerHTML = "";
 
-    filteredOrders.forEach((order) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td class="mobile" onclick="showOrderDetails('${order.mobile}')">${order.mobile}</td>
-            <td>${order.name}</td>
-            <td class="pincode" onclick="showLocation('${order.pincode}')">${order.pincode}</td>
-            <td>${order.date}</td>
-            <td class="status" onclick="showStatusUpdate('${order.order_id}', '${order.current_status}')">${order.current_status}</td>
-            <td class="feedback" onclick="showFeedbackOptions('${order.feedback}')">${order.feedback}</td>
-        `;
-        ordersBody.appendChild(row);
-    });
 
-    // If no results are found, display a message
-    if (filteredOrders.length === 0) {
-        const row = document.createElement("tr");
-        row.innerHTML = "<td colspan='6'>No orders found</td>";
-        ordersBody.appendChild(row);
+
+// Function to mask the last three digits of the mobile number
+function maskMobile(mobile) {
+    if (!mobile || mobile.length < 3) return mobile;
+    return mobile.slice(0, -3) + "***";
+}
+
+
+
+// Function to show more details in a popup
+function showMoreDetails(name, status, orderId) {
+    const modal = document.getElementById("details-modal");
+    const modalContent = document.getElementById("modal-content");
+
+    // Fill modal with the selected order details
+    modalContent.innerHTML = `
+        <h3 class="modal-title">📦 Order Details</h3>
+        <p><strong>Name:</strong> <span>${name}</span></p>
+        <p><strong>Status:</strong> <span class="${getStatusClass(status)}">${status}</span></p>
+        <p><strong>Order ID:</strong> <span>${orderId}</span></p>
+        <button class="modal-close-btn" onclick="closeModal()">✖ </button>
+    `;
+
+    // Show the modal and apply background blur
+    modal.classList.add("popup-active");
+    document.body.classList.add("blur-background");
+}
+
+// Function to determine status color class
+function getStatusClass(status) {
+    switch (status.toLowerCase()) {
+        case "delivered": return "status-delivered";
+        case "shipped": return "status-shipped";
+        case "processing": return "status-processing";
+        case "cancelled": return "status-cancelled";
+        default: return "status-default";
     }
 }
 
-// Show all order details in a popup when clicking on the mobile number
-function showOrderDetails(mobile) {
-    // Find the order based on the mobile number from the global orders array
-    const order = orders.find(order => order.mobile === mobile);
-
-    if (order) {
-		const orderDetails = `
-			<div style="font-family: Arial, sans-serif; padding: 10px; border: 1px solid #ccc; border-radius: 8px; background: #f9f9f9;">
-		
-				<table style="width: 100%; border-collapse: collapse;">
-					<tr><td><strong>Name:</strong></td><td>${order.name}</td></tr>
-					<tr><td><strong>Mobile:</strong></td><td>${order.mobile}</td></tr>
-					<tr><td><strong>Address:</strong></td><td>${order.address}</td></tr>
-					<tr><td><strong>Date:</strong></td><td>${order.date}</td></tr>
-					<tr><td><strong>Time:</strong></td><td>${order.time}</td></tr>
-					<tr><td><strong>Pincode:</strong></td><td>${order.pincode}</td></tr>
-					<tr><td><strong>Order ID:</strong></td><td>${order.order_id}</td></tr>
-					<tr><td><strong>Payment ID:</strong></td><td>${order.payment_id}</td></tr>
-					<tr><td><strong>Current Status:</strong></td><td>${order.current_status}</td></tr>
-					<tr><td><strong>Feedback Shipping:</strong></td><td>${order.feedback && order.feedback.length > 0 && !isNaN(order.feedback.charAt(0)) ? order.feedback.charAt(0) : 'NA'}</td></tr>
-					<tr><td><strong>Feedback Packaging:</strong></td><td>${order.feedback && order.feedback.length > 1 && !isNaN(order.feedback.charAt(1)) ? order.feedback.charAt(1) : 'NA'}</td></tr>
-					<tr><td><strong>Feedback Product Satisfaction:</strong></td><td>${order.feedback && order.feedback.length > 2 && !isNaN(order.feedback.charAt(2)) ? order.feedback.charAt(2) : 'NA'}</td></tr>
-					<tr><td><strong>Feedback Overall:</strong></td><td>${order.feedback && order.feedback.length > 3 && !isNaN(order.feedback.charAt(3)) ? order.feedback.charAt(3) : 'NA'}</td></tr>
-					<tr><td><strong>Feedback Timestamp:</strong></td><td>${order.feedback_timestamp}</td></tr>
-					<tr><td><strong>Recommendation:</strong></td><td>${order.reusable_field1}</td></tr>
-					<tr><td><strong>Tracking Details:</strong></td><td>${order.reusable_field2}</td></tr>
-				</table>
-			</div>
-		`;
+// Function to close modal
+function closeModal() {
+    document.getElementById("details-modal").classList.remove("popup-active");
+    document.body.classList.remove("blur-background");
+}
 
 
-        // Update the modal content with the order details
-        document.getElementById("orderDetailsContent").innerHTML = orderDetails;
-        openModal('orderDetailsModal');
-    } else {
-        console.error('Order not found for mobile:', mobile);
-        alert('Order not found.');
+
+
+// Helper function to generate star ratings with SVG icons
+function getStars(rating) {
+    let stars = "";
+    const starSize = 20; // Set the size for the stars
+
+    for (let i = 0; i < 5; i++) {
+        if (i < rating) {
+            // Filled star SVG
+            stars += `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="${starSize}" height="${starSize}"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="#f39c12"/></svg>`;
+        } else {
+            // Empty star SVG
+            stars += `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="${starSize}" height="${starSize}"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="none" stroke="#dcdcdc" stroke-width="2"/></svg>`;
+        }
     }
+    return stars;
 }
 
 
-// Function to open a modal (for showing detailed information)
-function openModal(modalId) {
-    const modal = document.getElementById(modalId);
-    modal.style.display = "block";
-}
 
-// Function to close the modal
-function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
-    modal.style.display = "none";
+
+// Function to reveal the tracking details if it's text only
+function revealTrackingDetails(button) {
+    const details = button.nextElementSibling;
+    button.style.display = "none"; // Hide the button
+    details.style.display = "inline"; // Show the tracking details inline
 }
