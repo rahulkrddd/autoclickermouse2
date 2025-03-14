@@ -91,7 +91,7 @@
   },
   {
     "name": "Prem",
-    "address": "160,Ragavendhar nagar,srinivasapuram, iyyapanthangal,Chennai,Tamil Nadu. ",
+    "address": "160,Ragavendhar nagar,srinivasapuram,iyyapanthangal, Chennai,Tamil Nadu. ",
     "pincode": "600056",
     "mobile": "9551405234",
     "order_id": "order_Q6D6Q1gDhdLPTO",
