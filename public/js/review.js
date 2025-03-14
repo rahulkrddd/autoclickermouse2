@@ -47,10 +47,11 @@ document.addEventListener("DOMContentLoaded", async function () {
                 }
 
                 // Add the review content to the card
+		//CHANGE - 2025/MARCH TO HIDE ADDRESS - Changing- "<p class="address">${order.address}, ${order.pincode}</p>" to "<p class="address"> ${order.pincode}</p>" to <p class="address">Pincode : ${order.pincode}</p>
                 reviewCard.innerHTML = `
                     <div class="review-header">
                         <h3>${order.name} <span class="details">(<span class="mobile-prefix">${order.mobile.slice(0, -3)}</span><span class="mobile-blur">${order.mobile.slice(-3)}</span>)</span></h3>
-                        <p class="address">${order.address}, ${order.pincode}</p>
+                        <p class="address">Pincode : ${order.pincode}</p>
                         <p><strong>Order Date:</strong> ${order.date}</p>
                     </div>
 
