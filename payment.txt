@@ -113,10 +113,10 @@
     "payment_id": "pay_Q6D6UtiSuTckjK",
     "date": "15-MAR-25",
     "time": "08:00:00",
-    "current_status": "Delivered",
+    "current_status": "Order Placed",
     "feedback": "NA",
     "feedback_timestamp": "NA",
     "reusable_field1": "NA",
-    "reusable_field2": "HDFC Bank Courier service2xx"
+    "reusable_field2": "NA"
   }
 ]
