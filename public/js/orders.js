@@ -5,6 +5,73 @@ const mobileNumber = urlParams.get('mobileNumber');
 // Global variables
 let textFeedback, orderFeedback;
 
+function displayOrderDetails(order) {
+    document.getElementById('order-name').textContent = order.name;
+    document.getElementById('order-mobile').textContent = order.mobile;
+    document.getElementById('order-id').textContent = order.order_id;
+    document.getElementById('payment-id').textContent = order.payment_id;
+    document.getElementById('order-address').textContent = order.address;
+    document.getElementById('order-pincode').textContent = order.pincode;
+
+    // Convert GMT date & time to IST
+    let istDateTime = convertToIST(order.date, order.time);
+    document.getElementById('order-date').textContent = istDateTime.date;
+    document.getElementById('order-time').textContent = istDateTime.time;
+
+    let statusText = order.current_status === "Order Placed" ? "Order Confirmed" : order.current_status;
+    document.getElementById('order-status').textContent = statusText;
+
+    document.getElementById('tracking-id').textContent = order.reusable_field2 || "No tracking ID available.";
+    let trackingElement = document.getElementById('tracking-id');
+    let trackingValue = order.reusable_field2 || "No tracking ID available.";
+    
+    if (trackingValue.startsWith("http")) {
+        trackingElement.innerHTML = `<a href="${trackingValue}" target="_blank" class="tracking-link">Track Your Order</a>`;
+    } else {
+        trackingElement.textContent = trackingValue;
+    }
+
+    // Assign values to global variables
+    textFeedback = order.reusable_field1 || "No text feedback available.";
+    orderFeedback = order.feedback !== 'NA' ? order.feedback : "No feedback yet.";
+
+    // Set tracking progress
+    const progressBar = document.getElementById('progress');
+    if (order.current_status === 'Shipped') progressBar.style.width = '50%';
+    else if (order.current_status === 'Delivered') progressBar.style.width = '100%';
+
+    // Log the results in console
+    console.log("Text Feedback:", textFeedback);
+    console.log("Order Feedback:", orderFeedback);
+}
+
+// Function to convert GMT date & time to IST
+function convertToIST(orderDate, orderTime) {
+    // Convert order date to format "YYYY-MM-DD"
+    let months = {
+        "JAN": "01", "FEB": "02", "MAR": "03", "APR": "04",
+        "MAY": "05", "JUN": "06", "JUL": "07", "AUG": "08",
+        "SEP": "09", "OCT": "10", "NOV": "11", "DEC": "12"
+    };
+
+    let parts = orderDate.split("-");
+    let formattedDate = `20${parts[2]}-${months[parts[1]]}-${parts[0]}`; // Convert "01-FEB-25" to "2025-02-01"
+
+    // Create a Date object in UTC
+    let gmtDate = new Date(`${formattedDate}T${orderTime}Z`);  // Ensuring it's read as UTC
+
+    // Convert to IST (add 5 hours 30 minutes)
+    let istDate = new Date(gmtDate.getTime() + (5.5 * 60 * 60 * 1000)); // Correct conversion to IST
+
+    // Format IST date and time
+    let istDateFormatted = istDate.getUTCDate().toString().padStart(2, '0') + "-" +
+        Object.keys(months).find(key => months[key] === (istDate.getUTCMonth() + 1).toString().padStart(2, '0')) + "-" +
+        istDate.getUTCFullYear().toString().slice(-2); // Convert back to DD-MMM-YY
+
+    let istTimeFormatted = istDate.toISOString().split("T")[1].split(".")[0]; // Extract "HH:MM:SS"
+
+    return { date: istDateFormatted, time: istTimeFormatted };
+}
 // Function to display order details
 function displayOrderDetails(order) {
     document.getElementById('order-name').textContent = order.name;
