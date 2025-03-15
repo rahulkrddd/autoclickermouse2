@@ -118,6 +118,6 @@
     "feedback_timestamp": "NA",
     "reusable_field1": "NA",
     "reusable_field2": "NA",
-    "trading_details": "NAughty"
+    "trading_details": "HDFC COUrier"
   }
 ]
