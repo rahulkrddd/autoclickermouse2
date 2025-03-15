@@ -176,7 +176,7 @@ router.get('/getLocationByPincode', async (req, res) => { // Correct route path
 
 // Endpoint to update order status
 router.post('/updateOrderStatus', async (req, res) => {
-    const { orderId, status } = req.body;
+    const { orderId, status, tradingDetails } = req.body;
     
     // Fetch and update orders in the GitHub file
     try {
@@ -198,6 +198,7 @@ router.post('/updateOrderStatus', async (req, res) => {
 
         // Update the status
         orders[orderIndex].current_status = status;
+	orders[orderIndex].reusable_field2 = tradingDetails; // Added trading details update
 
         // Update the file on GitHub
         const updatedContent = Buffer.from(JSON.stringify(orders, null, 2)).toString('base64');
