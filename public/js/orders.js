@@ -300,10 +300,16 @@ function submitFeedback() {
     }
 
     const feedback = document.getElementById('new-feedback').value;
-    console.log("order:", currentOrder); // Log the global order object
+	console.log("order:", currentOrder); // Log the global order object
 
-    // Check if feedback is "NA", empty, or null
-    if (!currentOrder.feedback || currentOrder.feedback.trim() === "" || currentOrder.feedback.toUpperCase() === "NA") {
+    // Log the ratings before submission
+    console.log("Shipping Rating:", ratings.shipping);
+    console.log("Packaging Rating:", ratings.packaging);
+    console.log("Product Rating:", ratings.product);
+
+    // Validate that all ratings are greater than 0
+    if (ratings.shipping === 0 || ratings.packaging === 0 || ratings.product === 0) {
+        console.error("Please select the rating");
         showPopup("Please select the rating");
         return;
     }
