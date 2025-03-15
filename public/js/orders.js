@@ -45,7 +45,7 @@ function displayOrderDetails(order) {
     console.log("Order Feedback:", orderFeedback);
 }
 
-// Function to convert GMT date & time to IST
+// Function to convert GMT date & time to IST.
 function convertToIST(orderDate, orderTime) {
     // Convert order date to format "YYYY-MM-DD"
     let months = {
