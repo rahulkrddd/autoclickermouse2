@@ -300,8 +300,13 @@ function submitFeedback() {
     }
 
     const feedback = document.getElementById('new-feedback').value;
-	console.log("order:", currentOrder); // Log the global order object
+    console.log("order:", currentOrder); // Log the global order object
 
+    // Check if feedback is "NA", empty, or null
+    if (!currentOrder.feedback || currentOrder.feedback.trim() === "" || currentOrder.feedback.toUpperCase() === "NA") {
+        showPopup("Please select the rating");
+        return;
+    }
 
     // Make the API call to submit feedback, passing the entire order object
     fetch('/my-orders/submit-feedback', {
@@ -326,6 +331,7 @@ function submitFeedback() {
         showPopup("Error submitting feedback. Please try again.");
     });
 }
+
 
 // Show the custom popup with a message
 function showPopup(message) {
