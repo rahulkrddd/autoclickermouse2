@@ -173,7 +173,7 @@
     "payment_id": "pay_QZy6kTIhodlL02",
     "date": "31-MAY-25",
     "time": "13:30:00",
-    "current_status": "Order Placed",
+    "current_status": "Shipped",
     "feedback": "NA",
     "feedback_timestamp": "NA",
     "reusable_field1": "NA",
