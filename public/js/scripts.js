@@ -23,7 +23,7 @@ let gatewayChargePercentage = 1.0218; // Razorpay charges ~2.18%
       priceNoteElement.textContent = "(Excluding payment gateway charges)";
     } else {
       //priceNoteElement.textContent = "(Including payment gateway charges)";
-      priceNoteElement.innerHTML = '(I agree to <a href="/policies" target="_blank" rel="noopener noreferrer">Privacy Policy</a>)';
+      priceNoteElement.innerHTML = '(I agree to <a href="/policies" target="_blank" rel="noopener noreferrer">T&C</a>)';
     }
   });
 
