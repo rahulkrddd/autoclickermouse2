@@ -263,10 +263,10 @@
     "payment_id": "pay_QjlfyUCelKTWwv",
     "date": "21-JUN-25",
     "time": "07:44:38",
-    "current_status": "NA",
+    "current_status": "Order Placed",
     "feedback": "NA",
     "feedback_timestamp": "NA",
     "reusable_field1": "NA",
-    "reusable_field2": "NA"
+    "reusable_field2": "https://track.amazon.in/tracking/361448797816?trackingId=361448797816"
   }
 ]
