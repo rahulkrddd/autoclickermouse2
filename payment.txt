@@ -278,7 +278,7 @@
     "payment_id": "pay_QkapTTJqBGTudV",
     "date": "23-JUN-25",
     "time": "09:47:32",
-    "current_status": "Shipped",
+    "current_status": "Delivered",
     "feedback": "NA",
     "feedback_timestamp": "NA",
     "reusable_field1": "NA",
