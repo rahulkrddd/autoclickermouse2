@@ -343,8 +343,8 @@
     "feedback_timestamp": "NA",
     "reusable_field1": "NA",
     "reusable_field2": "https://track.amazon.in/tracking/362110496662?trackingId=362110496662"
-  }, 
-{
+  },
+  {
     "name": "Pankaj Varma",
     "address": "Hno B-16, Ground Floor, Left Side, Greenfield Colony, Sector 43, Gate no 2, Faridabad, Haryana ",
     "pincode": "121010",
@@ -353,7 +353,7 @@
     "payment_id": "pay_QucQrXrY57Fyxl",
     "date": "27-JUL-25",
     "time": "14:33:20",
-    "current_status": "Order Placed",
+    "current_status": "Shipped",
     "feedback": "NA",
     "feedback_timestamp": "NA",
     "reusable_field1": "NA",
