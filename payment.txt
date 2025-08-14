@@ -405,9 +405,9 @@
     "reusable_field2": "https://www.delhivery.com/track-v2/package/19041786175794"
   },
   {
-    "name": "saisanthosh S",
-    "address": "DS MAX SPLENDOR c221 c block 2nd floor Doddabidarakallu, Kereguddadahalli, Chikkabanavara, Bengaluru, Somashetti Halli, Karnataka 560090",
-    "pincode": "560090",
+    "name": "saisanthosh",
+    "address": "H. No 14, Vinayaka Cross, Raghavendra Layout Kammagondanahalli, Bangalore North, Bengaluru, Karnataka",
+    "pincode": "560015",
     "mobile": "7019826978",
     "order_id": "order_R4mafUBK5MpBT4",
     "payment_id": "pay_R4mb3sihZqRXEX",
