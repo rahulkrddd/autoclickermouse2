@@ -443,10 +443,10 @@
     "payment_id": "pay_RB93GBYtsWJy7Z",
     "date": "29-AUG-25",
     "time": "12:10:20",
-    "current_status": "NA",
+    "current_status": "Shipped",
     "feedback": "NA",
     "feedback_timestamp": "NA",
     "reusable_field1": "NA",
-    "reusable_field2": "NA"
+    "reusable_field2": "https://www.shiplee.ai/track?awb=37574910009984"
   }
 ]
