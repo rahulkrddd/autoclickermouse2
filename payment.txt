@@ -451,7 +451,7 @@
   },
   {
     "name": "Nishchay",
-    "address": "Ganpati Jewellers, Shaheed Dwar Bhaniyawala, Dehradun, Uttar Pradesh ",
+    "address": "Ganpati Jewellers, Shaheed Dwar Bhaniyawala, Dehradun, Uttarakhand",
     "pincode": "248140",
     "mobile": "7252917353",
     "order_id": "order_RD6lkY1Vyq49L9",
