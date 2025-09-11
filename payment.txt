@@ -488,10 +488,10 @@
     "payment_id": "pay_RGN5DOHI7dqDCD",
     "date": "11-SEP-25",
     "time": "17:08:18",
-    "current_status": "NA",
+    "current_status": "Shipped",
     "feedback": "NA",
     "feedback_timestamp": "NA",
     "reusable_field1": "NA",
-    "reusable_field2": "NA"
+    "reusable_field2": "https://www.delhivery.com/track-v2/package/37574910016564"
   }
 ]
