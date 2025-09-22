@@ -503,10 +503,10 @@
     "payment_id": "pay_RKfuMvK3kJr7Eh",
     "date": "22-SEP-25",
     "time": "14:09:11",
-    "current_status": "NA",
+    "current_status": "Shipped",
     "feedback": "NA",
     "feedback_timestamp": "NA",
     "reusable_field1": "NA",
-    "reusable_field2": "NA"
+    "reusable_field2": "https://www.shiplee.ai/track?awb=37574910021910"
   }
 ]
