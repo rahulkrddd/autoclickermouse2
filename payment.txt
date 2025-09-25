@@ -504,8 +504,8 @@
     "date": "22-SEP-25",
     "time": "14:09:11",
     "current_status": "Shipped",
-    "feedback": "NA",
-    "feedback_timestamp": "NA",
+    "feedback": "5555",
+    "feedback_timestamp": "2025-09-25T15:58:13.670Z",
     "reusable_field1": "NA",
     "reusable_field2": "https://www.shiplee.ai/track?awb=37574910021910"
   },
