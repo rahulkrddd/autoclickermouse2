@@ -503,7 +503,7 @@
     "payment_id": "pay_RKfuMvK3kJr7Eh",
     "date": "22-SEP-25",
     "time": "14:09:11",
-    "current_status": "Shipped",
+    "current_status": "Delivered",
     "feedback": "5555",
     "feedback_timestamp": "2025-09-25T15:58:13.670Z",
     "reusable_field1": "NA",
