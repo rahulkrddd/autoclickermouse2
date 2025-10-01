@@ -518,7 +518,7 @@
     "payment_id": "pay_RLLA9RAhL3TvlA",
     "date": "24-SEP-25",
     "time": "06:30:36",
-    "current_status": "Shipped",
+    "current_status": "Delivered",
     "feedback": "NA",
     "feedback_timestamp": "NA",
     "reusable_field1": "NA",
