@@ -533,7 +533,7 @@
     "payment_id": "pay_RMHSwVeuVW5kIk",
     "date": "26-SEP-25",
     "time": "15:32:45",
-    "current_status": "Shipped",
+    "current_status": "Delivered",
     "feedback": "NA",
     "feedback_timestamp": "NA",
     "reusable_field1": "NA",
