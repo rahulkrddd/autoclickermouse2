@@ -567,6 +567,6 @@
     "feedback": "5555",
     "feedback_timestamp": "2025-10-17T16:22:54.703Z",
     "reusable_field1": "VGood",
-    "reusable_field2": "https://www.delhivery.com/track-v2/package/37574910042475"
+    "reusable_field2": "https://www.shiplee.ai/track?awb=37574910042475"
   }
 ]
