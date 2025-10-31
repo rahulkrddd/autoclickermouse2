@@ -597,6 +597,6 @@
     "feedback": "NA",
     "feedback_timestamp": "NA",
     "reusable_field1": "NA",
-    "reusable_field2": "NA"
+    "reusable_field2": "Order_Cancelled"
   }
 ]
