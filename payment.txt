@@ -593,7 +593,7 @@
     "payment_id": "pay_Ra5JzDB0Gs3nR3",
     "date": "31-OCT-25",
     "time": "12:46:09",
-    "current_status": "NA",
+    "current_status": "Rejected",
     "feedback": "NA",
     "feedback_timestamp": "NA",
     "reusable_field1": "NA",
