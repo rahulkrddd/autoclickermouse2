@@ -598,5 +598,20 @@
     "feedback_timestamp": "NA",
     "reusable_field1": "NA",
     "reusable_field2": "Order_Cancelled 🔴"
+  },
+  {
+    "name": "ARBAZ KHAN ",
+    "address": "PAATIO KI DHAANI JNU UNIVERSITY ROAD NEAR NOORANI MASJID",
+    "pincode": "302031",
+    "mobile": "9079312179",
+    "order_id": "order_Rci6p4rPwZ3Il4",
+    "payment_id": "pay_Rci8FQyDSmUT4J",
+    "date": "07-NOV-25",
+    "time": "04:02:12",
+    "current_status": "NA",
+    "feedback": "NA",
+    "feedback_timestamp": "NA",
+    "reusable_field1": "NA",
+    "reusable_field2": "NA"
   }
 ]
