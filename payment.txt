@@ -623,10 +623,10 @@
     "payment_id": "pay_Re06JmMIdEWqgf",
     "date": "10-NOV-25",
     "time": "10:15:35",
-    "current_status": "NA",
+    "current_status": "Order Placed",
     "feedback": "NA",
     "feedback_timestamp": "NA",
     "reusable_field1": "NA",
-    "reusable_field2": "NA"
+    "reusable_field2": "https://www.shiplee.ai/track?awb=37574910042475"
   }
 ]
