@@ -623,7 +623,7 @@
     "payment_id": "pay_Re06JmMIdEWqgf",
     "date": "10-NOV-25",
     "time": "10:15:35",
-    "current_status": "Order Placed",
+    "current_status": "Shipped",
     "feedback": "NA",
     "feedback_timestamp": "NA",
     "reusable_field1": "NA",
