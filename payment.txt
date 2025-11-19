@@ -638,7 +638,7 @@
     "payment_id": "pay_ReVaTOGCe79jWU",
     "date": "11-NOV-25",
     "time": "17:03:26",
-    "current_status": "Shipped",
+    "current_status": "Delivered",
     "feedback": "NA",
     "feedback_timestamp": "NA",
     "reusable_field1": "NA",
