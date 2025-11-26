@@ -668,11 +668,11 @@
     "payment_id": "pay_324292253305",
     "date": "26-NOV-25",
     "time": "06:01:00",
-    "current_status": "Order Confirmed",
+    "current_status": "Shipped",
     "feedback": "NA",
     "feedback_timestamp": "NA",
     "reusable_field1": "NA",
-    "reusable_field2": "NA"
+    "reusable_field2": "https://www.shiplee.ai/track?awb=37574910055602"
   },
   {
     "name": "Abhishikt Phillips ",
