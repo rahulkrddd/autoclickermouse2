@@ -653,7 +653,7 @@
     "payment_id": "pay_Rjar870v8srbOj",
     "date": "24-NOV-25",
     "time": "13:27:38",
-    "current_status": "Shipped",
+    "current_status": "Delivered",
     "feedback": "NA",
     "feedback_timestamp": "NA",
     "reusable_field1": "NA",
