@@ -713,10 +713,10 @@
     "payment_id": "pay_Roh1p2y2iTOUSt",
     "date": "07-DEC-25",
     "time": "10:44:55",
-    "current_status": "NA",
+    "current_status": "Shipped",
     "feedback": "NA",
     "feedback_timestamp": "NA",
     "reusable_field1": "NA",
-    "reusable_field2": "NA"
+    "reusable_field2": "https://www.shiplee.ai/track?awb=37574910042475"
   }
 ]
