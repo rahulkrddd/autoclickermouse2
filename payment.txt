@@ -717,6 +717,6 @@
     "feedback": "NA",
     "feedback_timestamp": "NA",
     "reusable_field1": "NA",
-    "reusable_field2": "https://www.shiplee.ai/track?awb=37574910042475"
+    "reusable_field2": "https://track.amazon.in/tracking/365654305995?trackingId=365654305995"
   }
 ]
