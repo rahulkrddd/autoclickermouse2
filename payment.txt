@@ -698,7 +698,7 @@
     "payment_id": "pay_RoDnTwPxrR3qtm",
     "date": "06-DEC-25",
     "time": "06:09:24",
-    "current_status": "Shipped",
+    "current_status": "Delivered",
     "feedback": "NA",
     "feedback_timestamp": "NA",
     "reusable_field1": "NA",
