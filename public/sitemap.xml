@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Main Homepage -->
+  <url>
+    <loc>https://autoclickermouse.in/</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <!-- FAQs Page -->
+  <url>
+    <loc>https://autoclickermouse.in/FAQs</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+  <!-- Review Page -->
+  <url>
+    <loc>https://autoclickermouse.in/review</loc>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+  <!-- Policies Page -->
+  <url>
+    <loc>https://autoclickermouse.in/policies</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <!-- My Orders Page (Dynamic - Low Priority) -->
+  <url>
+    <loc>https://autoclickermouse.in/my-orders</loc>
+    <priority>0.3</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+</urlset>
