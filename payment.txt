@@ -747,6 +747,6 @@
     "feedback": "NA",
     "feedback_timestamp": "NA",
     "reusable_field1": "NA",
-    "reusable_field2": ""
+    "reusable_field2": "https://shiprocket.co/tracking/19041848240594"
   }
 ]
