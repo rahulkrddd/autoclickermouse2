@@ -176,6 +176,18 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("payNowButton").addEventListener("click", async () => {
     try {
+
+	//date 16/01/2026 below line added -1 //
+	alert(
+        "Payment Temporarily Unavailable\n\n" +
+        "Due to heavy order volume, we are currently unable to process online payments.\n\n" +
+        "Please contact us on +91 8839623805 to get your order processed.\n\n" +
+        "Thank you for your understanding."
+      );
+      return;
+	//date 16/01/2026 below line added -1 //
+
+		
       let amount = productPrice; // Base price of the product
       if (collectGatewayCharges === "Y") {
         amount = Math.round(amount * gatewayChargePercentage);
