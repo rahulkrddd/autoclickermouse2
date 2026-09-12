@@ -151,12 +151,12 @@
     </main>
 
     <!-- Footer -->
-<footer class="footer">
-    <button class="call-button" onclick="callNow()">📞 Call Us</button>
+<footer class="footer"> 
+    <button class="call-button" onclick="callNow()">📞 Call Us</button> 
     <p>&copy; <span id="currentYear"></span> Auto Clicker Mouse. 
         <a href="/policies" class="policies-link" target="_blank">| Privacy & Policies. |</a> 
         All rights reserved.
-    </p>
+    </p> 
 </footer>
 
 	
@@ -220,6 +220,8 @@
   </div>
 
 
-
+<script>
+    document.getElementById("currentYear").textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
