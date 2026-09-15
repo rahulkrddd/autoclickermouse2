@@ -803,10 +803,10 @@
     "payment_id": "pay_TcEcTJESDeQ4fw",
     "date": "15-SEP-26",
     "time": "07:45:43",
-    "current_status": "Order Placed",
+    "current_status": "Shipped",
     "feedback": "NA",
     "feedback_timestamp": "NA",
     "reusable_field1": "NA",
-    "reusable_field2": "https://www.shiplee.ai/track?awb=37574910042475"
+    "reusable_field2": "https://www.delhivery.com/track-v2/package/40252610000033"
   }
 ]
