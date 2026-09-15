@@ -1,6 +1,6 @@
 // Global variables for product price
 let productPrice = 999; // Define the product price
-let collectGatewayCharges = "Y"; // Define whether to collect gateway charges ('Y' or 'N')
+let collectGatewayCharges = "N"; // Define whether to collect gateway charges ('Y' or 'N')
 let gatewayChargePercentage = 1.0218; // Razorpay charges ~2.18%
 
   document.addEventListener("DOMContentLoaded", () => {
