@@ -818,10 +818,10 @@
     "payment_id": "pay_Tf2qGuPaZl6u5y",
     "date": "22-SEP-26",
     "time": "10:11:32",
-    "current_status": "NA",
+    "current_status": "Order Placed",
     "feedback": "NA",
     "feedback_timestamp": "NA",
     "reusable_field1": "NA",
-    "reusable_field2": "NA"
+    "reusable_field2": "https://www.delhivery.com/track-v2/package/40252610000044"
   }
 ]
